@@ -1,0 +1,35 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    tools:context=".activity.PhoneActivity">
+    <android.support.v7.widget.Toolbar
+        android:id="@+id/toolbar_phone"
+        android:layout_width="match_parent"
+        android:layout_height="?attr/actionBarSize"
+        app:title="Phone"
+        android:background="@color/colorBackgroundToolBar"
+        app:titleTextColor="@color/colorText_toolbar"
+
+        >
+
+    </android.support.v7.widget.Toolbar>
+    <android.support.v7.widget.RecyclerView
+        android:id="@+id/rv_phone"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:visibility="invisible"
+        android:layout_below="@+id/toolbar_phone">
+
+    </android.support.v7.widget.RecyclerView>
+    <ProgressBar
+        android:id="@+id/progress_bar_phone"
+        android:layout_width="match_parent"
+        android:layout_height="50dp"
+        android:layout_centerInParent="true"/>
+
+
+</RelativeLayout>

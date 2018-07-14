@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout
+    xmlns:android="http://schemas.android.com/apk/res/android" android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:orientation="horizontal"
+    android:weightSum="10">
+    <ImageView
+        android:id="@+id/image_row_category"
+        android:layout_width="0dp"
+        android:layout_height="50dp"
+        android:layout_weight="1"
+        android:scaleType="fitCenter"
+        android:src="@mipmap/ic_launcher"
+        android:layout_margin="5dp"
+        />
+    <TextView
+        android:id="@+id/text_row_category"
+        android:layout_width="0dp"
+        android:layout_height="50dp"
+        android:layout_weight="7"
+        android:text="Category product"
+        android:textSize="20sp"
+        android:textStyle="bold"
+        android:layout_margin="5dp"/>
+
+
+
+</LinearLayout>

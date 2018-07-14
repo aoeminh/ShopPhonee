@@ -1,0 +1,86 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".activity.PayActivity"
+    android:orientation="vertical"
+    android:weightSum="9"
+    android:padding="5dp"
+    >
+    <android.support.v7.widget.Toolbar
+        android:id="@+id/toolbat_pay"
+        android:layout_width="match_parent"
+        android:layout_height="?attr/actionBarSize"
+        android:background="@color/colorBackgroundToolBar"
+        app:title="Customer"
+        app:titleTextColor="@color/color_text_button">
+
+    </android.support.v7.widget.Toolbar>
+
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_weight="1"
+        android:text=" Customer Information"
+        android:gravity="center"
+        android:textSize="25sp"
+        android:textStyle="bold"
+        />
+
+    <EditText
+        android:id="@+id/edt_name_pay"
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_weight="1"
+        android:hint="Insert name"
+        android:layout_marginTop="20dp"
+         />
+    <EditText
+        android:id="@+id/edt_phone_pay"
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_weight="1"
+        android:hint="Insert Phone"/>
+    <EditText
+        android:id="@+id/edt_email_pay"
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_weight="1"
+        android:hint="Insert Email"
+        android:inputType="textEmailAddress"/>
+    <EditText
+        android:id="@+id/edt_address_pay"
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_weight="1"
+        android:hint="Insert address"/>
+
+    <LinearLayout
+        android:gravity="center"
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_weight="1"
+        android:weightSum="3"
+        android:layout_marginTop="20dp">
+        <Button
+            android:id="@+id/btn_confirm_shopping"
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:layout_weight="1"
+            style="@style/buttonStyle"
+            android:layout_marginRight="50dp"
+            android:text="@string/text_btn_confirm"
+            />
+        <Button
+            android:id="@+id/btn_back_shopping"
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:layout_weight="1"
+            style="@style/buttonStyle"
+            android:text="@string/text_btn_back"
+            />
+    </LinearLayout>
+
+</LinearLayout>

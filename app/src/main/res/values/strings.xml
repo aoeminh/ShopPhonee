@@ -1,0 +1,33 @@
+<resources>
+    <string name="app_name">ShopPhonee</string>
+    <string name="main_network_notification">Internet connection problems . Please try again later.
+</string>
+    <string-array name="spinner_quatily">
+        <item>1</item>
+        <item>2</item>
+        <item>3</item>
+        <item>4</item>
+        <item>5</item>
+        <item>6</item>
+        <item>7</item>
+        <item>8</item>
+        <item>9</item>
+        <item>10</item>
+    </string-array>
+    <string name="money_unit">$</string>
+    <string name="label_price">Price:    $</string>
+    <string name="label_btn_buy">Buy</string>
+    <string name="label_btn_home">Home</string>
+    <string name="label_btn_add_cart">Add to cart</string>
+    <string name="text_description">Description:</string>
+    <string name="text_btn_confirm">Confirm</string>
+    <string name="text_btn_back">Back</string>
+    <string name="text_username">Username</string>
+    <string name="text_password">Password</string>
+    <string name="text_button_login">Login</string>
+    <string name="text_hint_username">username</string>
+    <string name="text_hint_password">password</string>
+    <string name="text_button_signup">signup</string>
+    <string name="text_hint_re_password">insert password again</string>
+
+</resources>
