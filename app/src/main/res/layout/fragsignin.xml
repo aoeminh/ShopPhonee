@@ -21,16 +21,18 @@
         android:id="@+id/edt_username_signin"
         android:layout_width="match_parent"
         android:layout_height="0dp"
-        android:layout_weight="1"
+        android:layout_weight="1.5"
         android:hint="@string/text_hint_username"
+        android:layout_marginTop="10dp"
         />
 
 
     <EditText
+        android:inputType="textPassword"
         android:id="@+id/edt_password_signin"
         android:layout_width="match_parent"
         android:layout_height="0dp"
-        android:layout_weight="1"
+        android:layout_weight="1.5"
         android:hint="@string/text_hint_password"
         android:layout_marginTop="10dp"
         />
@@ -51,15 +53,18 @@
             style="@style/buttonStyle"
             android:layout_marginRight="30dp"
             android:textSize="17sp"
+            android:background="@drawable/buton_border"
             />
         <Button
-            android:id="@+id/btn_signin"
+            android:id="@+id/btn_login"
             android:layout_width="0dp"
             android:layout_height="match_parent"
             android:layout_weight="1"
             android:text="@string/text_button_login"
             style="@style/buttonStyle"
             android:textSize="17sp"
+            android:background="@drawable/buton_border"
+
             />
     </LinearLayout>
 

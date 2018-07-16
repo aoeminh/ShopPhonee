@@ -30,13 +30,14 @@
             android:text="signin"
             style="@style/buttonStyle"
             android:layout_marginRight="1dp"
-
+            android:background="@drawable/press_button"
        />
         <Button
             android:id="@+id/btn_signup"
             android:layout_width="0dp"
             android:layout_height="match_parent"
             android:layout_weight="1"
+            android:background="@drawable/press_button"
 
             android:text="signup"
         style="@style/buttonStyle"/>

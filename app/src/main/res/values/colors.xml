@@ -7,4 +7,6 @@
     <color name="color_text_button">#ffffff</color>
     <color name="colorText_toolbar">#ffffff</color>
     <color name="colorBackgroundToolBar">#36cf07</color>
+    <color name="button_pressed">#ccff3700</color>
+    <color name="button_focused">#ffffff</color>
 </resources>

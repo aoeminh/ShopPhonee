@@ -6,6 +6,7 @@ import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.example.apple.shopphonee.R;
+import com.example.apple.shopphonee.model.Account;
 
 public class ProfileActivity extends BaseActivity {
 
@@ -22,8 +23,9 @@ public class ProfileActivity extends BaseActivity {
         tvGender = this.findViewById(R.id.tv_gender_profile);
         tvEmail = this.findViewById(R.id.tv_email_profile);
         tvAdress = this.findViewById(R.id.tv_address_profile);
-
-
+        Bundle bundle = getIntent().getExtras();
+        Account account = (Account) bundle.getSerializable("account");
+        tvName.setText(account.getUsername());
 
     }
 

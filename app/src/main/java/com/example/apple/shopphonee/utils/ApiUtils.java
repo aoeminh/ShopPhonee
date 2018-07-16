@@ -3,24 +3,35 @@ package com.example.apple.shopphonee.utils;
 import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
+import android.util.Log;
 import android.widget.ImageView;
 
 import com.bumptech.glide.Glide;
 import com.example.apple.shopphonee.activity.DetailProduct;
 import com.example.apple.shopphonee.model.APIService;
+import com.example.apple.shopphonee.model.Account;
 import com.example.apple.shopphonee.model.Product;
 import com.example.apple.shopphonee.model.RetrofitClient;
 
+import org.json.JSONException;
+import org.json.JSONObject;
+
+import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
 
+import okhttp3.ResponseBody;
+import retrofit2.Call;
+import retrofit2.Callback;
+import retrofit2.Response;
 import retrofit2.Retrofit;
 
 public class ApiUtils {
 //192.168.100.31
 //
 //192.168.0.104
-    private final static String BASE_URL ="http://192.168.100.31/server/";
+    //10.22.185.162
+    private final static String BASE_URL ="http://192.168.43.218/server/";
     public static APIService getAPIService(){
         return RetrofitClient.getRetrofitClient(BASE_URL).create(APIService.class);
     }
@@ -49,7 +60,40 @@ public class ApiUtils {
         return product;
     }
 
+    public static void login(String username, String password){
 
+        ApiUtils.getAPIService().loginAccount(username,password).enqueue(new Callback<ResponseBody>() {
+            @Override
+            public void onResponse(Call<ResponseBody> call, Response<ResponseBody> response) {
+                if(response.isSuccessful()){
+                    try {
+
+                        JSONObject jsonObject = new JSONObject(response.body().string());
+                        Log.i("test",jsonObject.toString());
+                        int status = jsonObject.getInt("success");
+                        if (status == 1) {
+                            Account account = new Account();
+                            account.setUsername(jsonObject.getString("username"));
+                            Log.i("username",account.getUsername());
+
+                        } else {
+                            Log.d("error", "onResponse: " + jsonObject.toString());
+                        }
+
+                    } catch (JSONException e) {
+                        e.printStackTrace();
+                    } catch (IOException e) {
+                        e.printStackTrace();
+                    }
+                }
+            }
+
+            @Override
+            public void onFailure(Call<ResponseBody> call, Throwable t) {
+
+            }
+        });
+    }
 
 
 
