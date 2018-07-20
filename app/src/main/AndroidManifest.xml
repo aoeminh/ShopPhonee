@@ -25,7 +25,9 @@
         <activity android:name=".activity.LaptopActivity" />
         <activity android:name=".activity.PayActivity" />
         <activity android:name=".activity.ProfileActivity" />
-        <activity android:name=".activity.LoginActivity"></activity>
+        <activity android:name=".activity.LoginActivity" />
+        <activity android:name=".activity.ListBills" />
+        <activity android:name=".activity.EditProfile"></activity>
     </application>
 
 </manifest>

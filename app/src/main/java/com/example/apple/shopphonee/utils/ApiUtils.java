@@ -31,7 +31,7 @@ public class ApiUtils {
 //
 //192.168.0.104
     //10.22.185.162
-    private final static String BASE_URL ="http://192.168.43.218/server/";
+    private final static String BASE_URL ="http://192.168.0.108/server/";
     public static APIService getAPIService(){
         return RetrofitClient.getRetrofitClient(BASE_URL).create(APIService.class);
     }

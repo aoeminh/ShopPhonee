@@ -24,6 +24,7 @@ import com.example.apple.shopphonee.R;
 import com.example.apple.shopphonee.adapter.NavigationAdapter;
 import com.example.apple.shopphonee.adapter.HomeAdapter;
 import com.example.apple.shopphonee.model.APIService;
+import com.example.apple.shopphonee.model.Account;
 import com.example.apple.shopphonee.model.Cart;
 import com.example.apple.shopphonee.model.Category;
 import com.example.apple.shopphonee.model.Product;
@@ -51,6 +52,7 @@ public class MainActivity extends BaseActivity {
     public static List<Product> phones = new ArrayList<Product>();
     private ApiUtils apiUtils;
     public static boolean checkLogin =false;
+    public static Account accountMain = new Account();
     public static List<Cart> cartList;
 
     @Override

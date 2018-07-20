@@ -7,27 +7,25 @@
     android:layout_margin="5dp"
 
     >
-
     <TextView
         android:id="@+id/tv_note_signup"
-        android:layout_marginTop="50dp"
+        android:layout_marginTop="30dp"
         android:layout_width="match_parent"
         android:layout_height="0dp"
         android:layout_weight="1"
-        android:text=""
         android:textStyle="bold"
-        android:textSize="20sp"
+        android:textSize="15sp"
         android:gravity="center_vertical"
+        android:visibility="gone"
         />
 
     <EditText
         android:id="@+id/edt_username_signup"
         android:layout_width="match_parent"
         android:layout_height="0dp"
+        android:layout_marginTop="60dp"
         android:layout_weight="1.5"
-        android:hint="@string/text_hint_username"
-        />
-
+        android:hint="@string/text_hint_username" />
 
     <EditText
         android:inputType="textPassword"
@@ -37,6 +35,7 @@
         android:layout_weight="1.5"
         android:hint="@string/text_hint_password"
         android:layout_marginTop="10dp"
+
         />
     <EditText
         android:inputType="textPassword"

@@ -37,8 +37,12 @@ public interface APIService {
     @POST("register.php")
     Call<ResponseBody> registerAccount (@Field("username") String username, @Field("password") String password);
 
-
-
+    //insert to bill
+    @FormUrlEncoded
+    @POST("insert.php")
+    Call<ResponseBody> insertBill(@Field("username") String username, @Field("phone_number") String phoneNumber,
+                                  @Field("totalBill") int totalBill, @Field("address") String address,
+                                  @Field("note") String note);
 
 
 }

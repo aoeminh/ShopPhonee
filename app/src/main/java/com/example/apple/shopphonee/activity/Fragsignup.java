@@ -2,6 +2,7 @@ package com.example.apple.shopphonee.activity;
 
 import android.app.Fragment;
 import android.content.Intent;
+import android.graphics.Color;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.util.Log;
@@ -15,13 +16,15 @@ import android.widget.Toast;
 
 import com.example.apple.shopphonee.R;
 import com.example.apple.shopphonee.model.Account;
+import com.example.apple.shopphonee.model.DataLogin;
 import com.example.apple.shopphonee.model.DataRegister;
 
 public class Fragsignup extends Fragment implements View.OnClickListener {
 
-    Button btnSignup;
+    Button btnSignup,btnBack;
     EditText username, password, rePassword;
     TextView noteTv;
+    public static final String KEY_ACCOUNT = "account";
 
     @Nullable
     @Override
@@ -32,39 +35,43 @@ public class Fragsignup extends Fragment implements View.OnClickListener {
         password = view.findViewById(R.id.edt_password_signup);
         rePassword = view.findViewById(R.id.edt_re_password_signup);
         noteTv = view.findViewById(R.id.tv_note_signup);
+        btnBack = view.findViewById(R.id.btn_back_signup);
         btnSignup.setOnClickListener(this);
+        btnBack.setOnClickListener(this);
         return view;
     }
 
     @Override
     public void onClick(View v) {
-        String name = username.getText().toString();
-        String strpassword = password.getText().toString();
-        String strRepassword = rePassword.getText().toString();
-        boolean validation = validation(name, strpassword, strRepassword);
-        if (validation) {
-            LoginActivity.registter(name, strpassword, new DataRegister() {
-                @Override
-                public void dataRegister(Account account, boolean flag) {
-                    if (flag) {
-                        Bundle bundle = new Bundle();
-                        bundle.putSerializable("account", account);
-                        Intent intent = new Intent(getActivity(), ProfileActivity.class);
-                        intent.putExtras(bundle);
-                        getActivity().startActivity(intent);
-                        Toast.makeText(getActivity(),"Register success!",Toast.LENGTH_SHORT).show();
-                    } else {
-                        noteTv.setText("Register Fail! Please check username or password again!");
-
-                    }
-
-
-                }
-            });
-        } else {
-
+        int id = v.getId();
+        if(id == R.id.btn_back_signup){
+            Intent intent = new Intent(getActivity(), MainActivity.class);
+            startActivity(intent);
 
         }
+        if (id == R.id.btn_register_signup){
+            String name = username.getText().toString();
+            String strpassword = password.getText().toString();
+            String strRepassword = rePassword.getText().toString();
+            boolean validation = validation(name, strpassword, strRepassword);
+            if (validation) {
+                LoginActivity.registter(name, strpassword, new DataLogin() {
+                    @Override
+                    public void dataLogin(boolean check) {
+                        if(check){
+                            Intent intent = new Intent(getActivity(),ProfileActivity.class);
+                            startActivity(intent);
+                            Log.i("check","ok");
+                        }else {
+                            noteTv.setTextColor(Color.RED);
+                            noteTv.setText("Username has been existed");
+                            noteTv.setVisibility(View.VISIBLE);
+                        }
+                    }
+                });
+            }
+        }
+
     }
 
     boolean validation(String username, String password, String rePassword) {
@@ -75,10 +82,9 @@ public class Fragsignup extends Fragment implements View.OnClickListener {
                 Toast.makeText(getActivity(), "Username and password must  6 characterbe or more!", Toast.LENGTH_SHORT).show();
                 return false;
             }
-        }else{
+        } else {
             Toast.makeText(getActivity(), "Password invalid", Toast.LENGTH_SHORT).show();
             return false;
         }
-
     }
 }

@@ -8,6 +8,7 @@
     android:orientation="vertical"
     android:weightSum="10">
     <android.support.v7.widget.Toolbar
+        android:id="@+id/toolbar_login"
         android:layout_width="match_parent"
         android:layout_height="?attr/actionBarSize"
         android:background="@color/colorBackgroundToolBar"
@@ -27,7 +28,7 @@
             android:layout_width="0dp"
             android:layout_height="match_parent"
             android:layout_weight="1"
-            android:text="signin"
+            android:text="sign in"
             style="@style/buttonStyle"
             android:layout_marginRight="1dp"
             android:background="@drawable/press_button"
@@ -39,7 +40,7 @@
             android:layout_weight="1"
             android:background="@drawable/press_button"
 
-            android:text="signup"
+            android:text="sign up"
         style="@style/buttonStyle"/>
     </LinearLayout>
     <FrameLayout

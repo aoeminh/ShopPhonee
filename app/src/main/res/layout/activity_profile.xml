@@ -13,7 +13,9 @@
         android:background="@color/colorBackgroundToolBar"
         android:layout_height="?attr/actionBarSize"
         app:titleTextColor="@color/colorText_toolbar"
-        app:title="Your profile"></android.support.v7.widget.Toolbar>
+        app:title="Your profile">
+
+    </android.support.v7.widget.Toolbar>
     <de.hdodenhof.circleimageview.CircleImageView
         android:clickable="true"
         app:civ_border_width="1dp"
@@ -48,7 +50,7 @@
             android:layout_height="match_parent"
             android:layout_weight="1"
             android:textStyle="bold"
-            android:text="Gender:"
+            android:text="@string/gender"
             android:gravity="center_vertical"
             />
         <TextView
@@ -72,7 +74,7 @@
            android:layout_height="match_parent"
            android:layout_weight="1"
            android:textStyle="bold"
-           android:text="Phone Number:"
+           android:text="@string/phone_number"
            android:gravity="center_vertical"
            />
        <TextView
@@ -97,7 +99,7 @@
             android:layout_height="match_parent"
             android:layout_weight="1"
             android:textStyle="bold"
-            android:text="Address:"
+            android:text="@string/address"
             android:gravity="center_vertical"
             />
         <TextView
@@ -122,7 +124,7 @@
             android:layout_height="match_parent"
             android:layout_weight="1"
             android:textStyle="bold"
-            android:text="Email:"
+            android:text="@string/email"
             android:gravity="center_vertical"
             />
         <TextView
@@ -133,5 +135,42 @@
             android:gravity="center_vertical"
 
             />
+
     </LinearLayout>
+    <Button
+        android:id="@+id/btn_edit_profile"
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_weight="1"
+        style="@style/buttonStyle"
+        android:layout_marginTop="20dp"
+
+        android:text="Edit Profile"/>
+    <Button
+        android:id="@+id/btn_history_profile"
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_weight="1"
+        style="@style/buttonStyle"
+        android:layout_marginTop="20dp"
+
+        android:text="Histoy shopping"/>
+    <Button
+        android:id="@+id/btn_home_profile"
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_weight="1"
+        style="@style/buttonStyle"
+        android:layout_marginTop="20dp"
+
+        android:text="@string/label_btn_home"/>
+    <Button
+        android:id="@+id/btn_signout_profile"
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_weight="1"
+        style="@style/buttonStyle"
+        android:layout_marginTop="20dp"
+
+        android:text="@string/sign_out"/>
 </LinearLayout>

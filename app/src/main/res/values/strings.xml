@@ -29,5 +29,13 @@
     <string name="text_hint_password">password</string>
     <string name="text_button_signup">signup</string>
     <string name="text_hint_re_password">insert password again</string>
+    <string name="sign_out">Sign out</string>
+    <string name="email">Email:</string>
+    <string name="address">Address:</string>
+    <string name="phone_number">Phone Number:</string>
+    <string name="gender">Gender:</string>
+    <string name="notify_signin">Login fail! Please check username or password</string>
+    <string name="delivery_address">Delivery address:</string>
+    <string name="note">Note:</string>
 
 </resources>

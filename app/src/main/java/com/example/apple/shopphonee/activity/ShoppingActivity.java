@@ -26,7 +26,7 @@ public class ShoppingActivity extends BaseActivity implements View.OnClickListen
     private Product product = new Product();
     ShoppingCartAdapter adapter;
     RecyclerView listShopping_rv;
-    private static TextView totalBill;
+    public static TextView totalBill;
     Button backHome, payBtn;
     TextView empty_text;
     private Toolbar toolbar;
@@ -39,7 +39,7 @@ public class ShoppingActivity extends BaseActivity implements View.OnClickListen
         totalBill = this.findViewById(R.id.tv_total_bill);
         backHome =  this.findViewById(R.id.btn_back_home);
         payBtn =  this.findViewById(R.id.btn_pay);
-        toolbar =  this.findViewById(R.id.toolbat_shopping);
+        toolbar =  this.findViewById(R.id.toolbar_shopping);
         empty_text = this.findViewById(R.id.tv_empty_shopping);
         toolbar.setNavigationIcon(R.mipmap.ic_action_arrow_back);
         if (MainActivity.cartList.size() > 0) {
@@ -70,6 +70,8 @@ public class ShoppingActivity extends BaseActivity implements View.OnClickListen
                 onBackPressed();
             }
         });
+
+        payBtn.setOnClickListener(this);
     }
 
     public static void setTotalBill() {
@@ -89,6 +91,15 @@ public class ShoppingActivity extends BaseActivity implements View.OnClickListen
         if (id == R.id.btn_back_home) {
             Intent intent = new Intent(this, MainActivity.class);
             startActivity(intent);
+        }
+        if(id==R.id.btn_pay){
+            if(MainActivity.checkLogin){
+                Intent intent = new Intent(this,PayActivity.class);
+                startActivity(intent);
+            }else{
+                Intent intent = new Intent(this,LoginActivity.class);
+                startActivity(intent);
+            }
         }
     }
 }
