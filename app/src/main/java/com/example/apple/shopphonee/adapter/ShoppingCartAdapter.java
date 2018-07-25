@@ -127,6 +127,7 @@ public class ShoppingCartAdapter extends RecyclerView.Adapter<ShoppingCartAdapte
                         public void onClick(DialogInterface dialog, int which) {
                             cartlist.remove(getAdapterPosition());
                             notifyDataSetChanged();
+
                         }
                     });
                     builder.setNegativeButton("Cancel", new DialogInterface.OnClickListener() {

@@ -3,6 +3,7 @@ package com.example.apple.shopphonee.activity;
 import android.app.AlertDialog;
 import android.content.DialogInterface;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.util.Log;
@@ -13,7 +14,11 @@ import android.widget.TextView;
 import android.widget.Toolbar;
 
 import com.example.apple.shopphonee.R;
+import com.example.apple.shopphonee.model.BillDetail;
+import com.example.apple.shopphonee.model.Cart;
 import com.example.apple.shopphonee.utils.ApiUtils;
+import com.example.apple.shopphonee.utils.Constant;
+import com.example.apple.shopphonee.utils.UtilsSharePref;
 import com.google.gson.JsonObject;
 
 import org.json.JSONException;
@@ -22,6 +27,7 @@ import org.json.JSONObject;
 import java.io.IOException;
 
 import okhttp3.ResponseBody;
+import okhttp3.internal.Util;
 import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
@@ -32,6 +38,7 @@ public class PayActivity extends BaseActivity {
     Button confirm_btn, back_btn;
     TextView name, phone;
     EditText address , note;
+    SharedPreferences sharedPreferences;
 
     @Override
     void initView() {
@@ -42,13 +49,13 @@ public class PayActivity extends BaseActivity {
         address = this.findViewById(R.id.edt_address_pay);
         note = this.findViewById(R.id.edt_note_pay);
         back_btn = this.findViewById(R.id.btn_back_pay);
-
-
         toolbar.setNavigationIcon(R.mipmap.ic_action_arrow_back);
 
-        name.setText(MainActivity.accountMain.getUsername());
-        phone.setText(MainActivity.accountMain.getPhoneNumber());
-        address.setText(MainActivity.accountMain.getAddress());
+        sharedPreferences = UtilsSharePref.getSharedPreferences(this);
+
+        name.setText(sharedPreferences.getString(Constant.NAME,""));
+        phone.setText(sharedPreferences.getString(Constant.PHONE_NUMBER,""));
+        address.setText(sharedPreferences.getString(Constant.ADDRESS,""));
 
     }
 
@@ -94,7 +101,7 @@ public class PayActivity extends BaseActivity {
                                 Log.i("status",String.valueOf(status));
                                 if(status==1){
                                     final AlertDialog.Builder builder = new AlertDialog.Builder(PayActivity.this);
-                                    builder.setTitle("Success! Thank for watching!");
+                                    builder.setTitle("Success! Thank for shopping!");
                                     builder.setMessage("");
                                     builder.setPositiveButton("Continue", new DialogInterface.OnClickListener() {
                                         @Override
@@ -131,6 +138,21 @@ public class PayActivity extends BaseActivity {
 
                     }
                 });
+
+//                for(int i = 0;i<MainActivity.cartList.size(); i++){
+//                    Cart cart = MainActivity.cartList.get(i);
+//                    BillDetail billDetail = new BillDetail();
+//                    billDetail.setProductID(Integer.parseInt(cart.getProductId()));
+//                    billDetail.setProductName(cart.getProductName());
+//                    billDetail.setProductPrice(cart.getProductPrice());
+//                    billDetail.setQuantily(cart.getQuantily());
+//
+//                    int totalRow = cart.getProductPrice() * cart.getQuantily();
+//                    billDetail.setTotalRow(totalRow);
+//
+//                }
+
+
             }
         });
 

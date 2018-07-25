@@ -8,6 +8,7 @@ import retrofit2.http.Field;
 import retrofit2.http.FormUrlEncoded;
 import retrofit2.http.GET;
 import retrofit2.http.POST;
+import retrofit2.http.Path;
 
 public interface APIService {
 
@@ -44,5 +45,21 @@ public interface APIService {
                                   @Field("totalBill") int totalBill, @Field("address") String address,
                                   @Field("note") String note);
 
+    //edit infomation
+    @FormUrlEncoded
+    @POST("update.php")
+    Call<ResponseBody> updateInfo(@Field("username") String username, @Field("phone") String phoneNumber,
+                                  @Field("email") String email, @Field("address") String address);
 
+    //get list bill
+    @FormUrlEncoded
+    @POST("getListBill.php")
+    Call<List<Bills>> getListBill(@Field("phone") String username);
+
+    // insert bill detail to database
+    @FormUrlEncoded
+    @POST("insertBillDetail")
+    Call<ResponseBody> inserBillDetail(@Field("productID") int id, @Field("productName") String productName,
+                                       @Field("productPrice") int price,@Field("quantily") int quantily,
+                                       @Field("totalRow") int totalRow );
 }

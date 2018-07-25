@@ -18,6 +18,10 @@
         <item name="android:textColor">@color/color_text_button</item>
         <item name="android:background">@color/color_button</item>
     </style>
+    <style name="label_text">
+        <item name="android:textStyle">bold</item>
+        <item name="android:gravity">center_vertical</item>
+    </style>
 
 
 

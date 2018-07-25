@@ -37,30 +37,7 @@
 
         android:gravity="center"/>
 
-    <LinearLayout
-        android:layout_width="match_parent"
-        android:layout_height="0dp"
-        android:layout_weight="1"
-        android:orientation="horizontal"
-        android:weightSum="3"
-        android:layout_marginRight="5dp"
-        android:layout_marginLeft="5dp">
-        <TextView
-            android:layout_width="0dp"
-            android:layout_height="match_parent"
-            android:layout_weight="1"
-            android:textStyle="bold"
-            android:text="@string/gender"
-            android:gravity="center_vertical"
-            />
-        <TextView
-            android:id="@+id/tv_gender_profile"
-            android:layout_width="0dp"
-            android:layout_height="match_parent"
-            android:layout_weight="2"
-            android:gravity="center_vertical"
-            />
-    </LinearLayout>
+
    <LinearLayout
        android:layout_width="match_parent"
        android:layout_height="0dp"
@@ -73,10 +50,9 @@
            android:layout_width="0dp"
            android:layout_height="match_parent"
            android:layout_weight="1"
-           android:textStyle="bold"
+
            android:text="@string/phone_number"
-           android:gravity="center_vertical"
-           />
+            style="@style/label_text"           />
        <TextView
            android:id="@+id/tv_phone_number_profile"
            android:layout_width="0dp"
@@ -98,9 +74,8 @@
             android:layout_width="0dp"
             android:layout_height="match_parent"
             android:layout_weight="1"
-            android:textStyle="bold"
             android:text="@string/address"
-            android:gravity="center_vertical"
+            style="@style/label_text"
             />
         <TextView
             android:id="@+id/tv_address_profile"
@@ -123,9 +98,9 @@
             android:layout_width="0dp"
             android:layout_height="match_parent"
             android:layout_weight="1"
-            android:textStyle="bold"
+
+            style="@style/label_text"
             android:text="@string/email"
-            android:gravity="center_vertical"
             />
         <TextView
             android:id="@+id/tv_email_profile"

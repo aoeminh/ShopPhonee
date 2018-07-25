@@ -1,6 +1,7 @@
 package com.example.apple.shopphonee.activity;
 
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.support.v7.widget.LinearLayoutManager;
@@ -17,6 +18,8 @@ import com.example.apple.shopphonee.R;
 import com.example.apple.shopphonee.adapter.ShoppingCartAdapter;
 import com.example.apple.shopphonee.model.Cart;
 import com.example.apple.shopphonee.model.Product;
+import com.example.apple.shopphonee.utils.Constant;
+import com.example.apple.shopphonee.utils.UtilsSharePref;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -30,7 +33,7 @@ public class ShoppingActivity extends BaseActivity implements View.OnClickListen
     Button backHome, payBtn;
     TextView empty_text;
     private Toolbar toolbar;
-
+    SharedPreferences sharedPreerences ;
 
     @Override
     void initView() {
@@ -52,7 +55,7 @@ public class ShoppingActivity extends BaseActivity implements View.OnClickListen
         listShopping_rv.setLayoutManager(layoutManager);
         listShopping_rv.setAdapter(adapter);
         setTotalBill();
-
+        sharedPreerences = UtilsSharePref.getSharedPreferences(this);
 
     }
 
@@ -81,8 +84,6 @@ public class ShoppingActivity extends BaseActivity implements View.OnClickListen
             total += (cart.getQuantily() * cart.getProductPrice());
         }
         totalBill.setText(String.valueOf(total));
-
-
     }
 
     @Override
@@ -93,7 +94,7 @@ public class ShoppingActivity extends BaseActivity implements View.OnClickListen
             startActivity(intent);
         }
         if(id==R.id.btn_pay){
-            if(MainActivity.checkLogin){
+            if(sharedPreerences.getBoolean(Constant.LOGGED_IN,false)){
                 Intent intent = new Intent(this,PayActivity.class);
                 startActivity(intent);
             }else{

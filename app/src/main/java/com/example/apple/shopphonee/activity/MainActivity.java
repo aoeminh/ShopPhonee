@@ -1,6 +1,8 @@
 package com.example.apple.shopphonee.activity;
 
+import android.content.Context;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.support.annotation.NonNull;
 import android.support.design.widget.NavigationView;
 import android.support.v4.content.ContextCompat;
@@ -29,6 +31,8 @@ import com.example.apple.shopphonee.model.Cart;
 import com.example.apple.shopphonee.model.Category;
 import com.example.apple.shopphonee.model.Product;
 import com.example.apple.shopphonee.utils.ApiUtils;
+import com.example.apple.shopphonee.utils.Constant;
+import com.example.apple.shopphonee.utils.UtilsSharePref;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -40,7 +44,6 @@ import retrofit2.Response;
 public class MainActivity extends BaseActivity {
     private android.support.v7.widget.Toolbar toolbar;
     private ViewFlipper viewFlipper;
-
     NavigationView navigationView;
     private RecyclerView listView;
     private RecyclerView listPhone;
@@ -51,9 +54,10 @@ public class MainActivity extends BaseActivity {
     private List<Category> categories = new ArrayList<Category>();
     public static List<Product> phones = new ArrayList<Product>();
     private ApiUtils apiUtils;
-    public static boolean checkLogin =false;
+    SharedPreferences sharedPreferences;
     public static Account accountMain = new Account();
     public static List<Cart> cartList;
+
 
     @Override
     void initView() {
@@ -64,7 +68,7 @@ public class MainActivity extends BaseActivity {
         listView = (RecyclerView) this.findViewById(R.id.list_view_navigation);
         drawerLayout = (DrawerLayout) this.findViewById(R.id.drawer_layout);
         listPhone = (RecyclerView) this.findViewById(R.id.rv_recycler_view_home);
-
+        sharedPreferences = UtilsSharePref.getSharedPreferences(this);
         //intilizae listcart
         if (cartList == null) {
             cartList = new ArrayList<>();
@@ -209,13 +213,14 @@ public class MainActivity extends BaseActivity {
                 startActivity(intent);
                 break;
             case R.id.profile:
-                if(!checkLogin){
-                    Intent intent1 = new Intent(this,LoginActivity.class);
-                    startActivity(intent1);
-                    break;
-                }else {
+                if(sharedPreferences.getBoolean(Constant.LOGGED_IN,false)){
                     Intent intent2 = new Intent(this,ProfileActivity.class);
                     startActivity(intent2);
+                    break;
+                }else {
+
+                    Intent intent1 = new Intent(this,LoginActivity.class);
+                    startActivity(intent1);
                     break;
                 }
             default:

@@ -13,43 +13,125 @@
             android:layout_width="match_parent"
             android:layout_height="200dp"
             android:orientation="vertical"
-            android:weightSum="5">
-
-            <TextView
-                android:id="@+id/tv_name_list_bill"
+            android:weightSum="5"
+            android:padding="10dp">
+            <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="0dp"
                 android:layout_weight="1"
-                android:text="Name"
-                />
+                android:weightSum="4"
+                android:orientation="horizontal"
+                >
+                <TextView
+                    android:layout_width="0dp"
+                    android:layout_height="match_parent"
+                    android:layout_weight="1"
+                    android:text="@string/name"
+                    style="@style/label_text"/>
+                <TextView
+                    android:id="@+id/tv_name_list_bill"
+                    android:layout_width="0dp"
+                    android:layout_height="match_parent"
+                    android:layout_weight="3"
+                    style="@style/label_text"
+                    />
 
-            <TextView
-                android:id="@+id/tv_phone_list_bill"
+            </LinearLayout>
+            <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="0dp"
                 android:layout_weight="1"
-                android:text="phone" />
+                android:weightSum="4"
+                android:orientation="horizontal"
+                >
+                <TextView
+                    android:layout_width="0dp"
+                    android:layout_height="match_parent"
+                    android:layout_weight="1"
+                    android:text="@string/phone_number"
+                    style="@style/label_text"/>
+                <TextView
+                    android:id="@+id/tv_phone_list_bill"
+                    android:layout_width="0dp"
+                    android:layout_height="match_parent"
+                    android:layout_weight="3"
+                    style="@style/label_text"
 
-            <TextView
-                android:id="@+id/total_list_bill"
+                    />
+
+            </LinearLayout>
+
+            <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="0dp"
                 android:layout_weight="1"
-                android:text="Total bill" />
+                android:weightSum="4"
+                android:orientation="horizontal"
+                >
+                <TextView
+                    android:layout_width="0dp"
+                    android:layout_height="match_parent"
+                    android:layout_weight="1"
+                    android:text="@string/total_bills"
+                    style="@style/label_text"/>
+                <TextView
+                    android:id="@+id/total_list_bill"
+                    android:layout_width="0dp"
+                    android:layout_height="match_parent"
+                    android:layout_weight="3"
+                    style="@style/label_text"
 
-            <TextView
-                android:id="@+id/address_list_bill"
+                    />
+
+            </LinearLayout>
+
+            <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="0dp"
                 android:layout_weight="1"
-                android:text="address"/>
+                android:weightSum="4"
+                android:orientation="horizontal"
+                >
+                <TextView
+                    android:layout_width="0dp"
+                    android:layout_height="match_parent"
+                    android:layout_weight="1"
+                    android:text="@string/address"
+                    style="@style/label_text"/>
+                <TextView
+                    android:id="@+id/address_list_bill"
+                    android:layout_width="0dp"
+                    android:layout_height="match_parent"
+                    android:layout_weight="3"
+                    style="@style/label_text"
 
-            <TextView
-                android:id="@+id/note_list_bill"
+                    />
+
+            </LinearLayout>
+
+            <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="0dp"
                 android:layout_weight="1"
-                android:text="note"/>
+                android:weightSum="4"
+                android:orientation="horizontal"
+                >
+                <TextView
+                    android:layout_width="0dp"
+                    android:layout_height="match_parent"
+                    android:layout_weight="1"
+                    android:text="@string/note"
+                    style="@style/label_text"/>
+                <TextView
+                    android:id="@+id/note_list_bill"
+                    android:layout_width="0dp"
+                    android:layout_height="match_parent"
+                    android:layout_weight="3"
+                    style="@style/label_text"
+                    />
+
+            </LinearLayout>
+
         </LinearLayout>
 
     </android.support.v7.widget.CardView>

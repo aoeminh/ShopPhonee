@@ -37,5 +37,8 @@
     <string name="notify_signin">Login fail! Please check username or password</string>
     <string name="delivery_address">Delivery address:</string>
     <string name="note">Note:</string>
+    <string name="name">Name:</string>
+    <string name="label_save">Save</string>
+    <string name="total_bills">Total bills:</string>
 
 </resources>

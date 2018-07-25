@@ -3,8 +3,11 @@ package com.example.apple.shopphonee.activity;
 import android.app.Fragment;
 import android.app.FragmentManager;
 import android.app.FragmentTransaction;
+import android.content.Context;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.graphics.Color;
+import android.preference.PreferenceManager;
 import android.support.v7.widget.Toolbar;
 import android.util.Log;
 import android.view.View;
@@ -36,6 +39,7 @@ public class LoginActivity extends BaseActivity implements View.OnClickListener 
     FragmentManager fragmentManager = getFragmentManager();
     Toolbar toolbar;
     TextView tvNotify;
+    Account account = new Account();
 
     @Override
     void initView() {
@@ -45,8 +49,6 @@ public class LoginActivity extends BaseActivity implements View.OnClickListener 
         tvNotify = this.findViewById(R.id.tv_notify_signin);
 
         toolbar.setNavigationIcon(R.mipmap.ic_action_arrow_back);
-
-
     }
 
     @Override
@@ -64,10 +66,12 @@ public class LoginActivity extends BaseActivity implements View.OnClickListener 
         });
         btnSignup.setOnClickListener(this);
         btnSignin.setOnClickListener(this);
+
     }
 
     @Override
     public void onClick(View v) {
+
         int id = v.getId();
         FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
         Fragment fragment = null;
@@ -89,7 +93,7 @@ public class LoginActivity extends BaseActivity implements View.OnClickListener 
         fragmentTransaction.commit();
     }
 
-    public static   void login(String username, String password, final DataLogin dataLogin) {
+    public void login(String username, String password, final DataLogin dataLogin) {
 
         ApiUtils.getAPIService().loginAccount(username, password).enqueue(new Callback<ResponseBody>() {
             @Override
@@ -101,20 +105,20 @@ public class LoginActivity extends BaseActivity implements View.OnClickListener 
                         int status = jsonObject.getInt("success");
                         Log.i("status", String.valueOf(status));
                         if (status == 1) {
-
                             String username = jsonObject.getString("username");
                             String phone = jsonObject.getString("phone");
                             String email = jsonObject.getString("email");
                             String address = jsonObject.getString("address");
-                            MainActivity.accountMain.setUsername(username);
-                            MainActivity.accountMain.setPhoneNumber(phone);
-                            MainActivity.accountMain.setAddress(address);
-                            MainActivity.accountMain.setEmail(email);
-                            MainActivity.checkLogin = true;
-                            dataLogin.dataLogin(true);
+
+                            account.setUsername(username);
+                            account.setPhoneNumber(phone);
+                            account.setAddress(address);
+                            account.setEmail(email);
+
+                            dataLogin.dataLogin(true,account);
 
                         } else {
-                            dataLogin.dataLogin(false);
+                            dataLogin.dataLogin(false,account);
 
                         }
 
@@ -133,7 +137,7 @@ public class LoginActivity extends BaseActivity implements View.OnClickListener 
         });
     }
 
-    public static void registter(String username, String password, final DataLogin dataLogin) {
+    public  void registter(String username, String password, final DataLogin dataLogin) {
         ApiUtils.getAPIService().registerAccount(username, password).enqueue(new Callback<ResponseBody>() {
             @Override
             public void onResponse(Call<ResponseBody> call, Response<ResponseBody> response) {
@@ -149,17 +153,16 @@ public class LoginActivity extends BaseActivity implements View.OnClickListener 
                             String email = jsonObject.getString("email");
                             String address = jsonObject.getString("address");
 
-                            MainActivity.accountMain.setUsername(username);
-                            MainActivity.accountMain.setPhoneNumber(phone);
-                            MainActivity.accountMain.setAddress(address);
-                            MainActivity.accountMain.setEmail(email);
-                            MainActivity.checkLogin = true;
-                            dataLogin.dataLogin(true);
+                            account.setUsername(username);
+                            account.setPhoneNumber(phone);
+                            account.setAddress(address);
+                            account.setEmail(email);
+                            dataLogin.dataLogin(true,account);
 
                         } else {
                             Log.i("status", String.valueOf(status));
 
-                            dataLogin.dataLogin(false);
+                            dataLogin.dataLogin(false,account);
                         }
 
                     } catch (JSONException e) {
@@ -177,5 +180,6 @@ public class LoginActivity extends BaseActivity implements View.OnClickListener 
         });
 
     }
+
 
 }

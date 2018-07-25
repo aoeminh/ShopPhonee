@@ -1,9 +1,110 @@
 <?xml version="1.0" encoding="utf-8"?>
-<android.support.constraint.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".activity.EditProfile">
+    tools:context=".activity.EditProfile"
+    android:orientation="vertical"
+    android:weightSum="10"
+    >
+<android.support.v7.widget.Toolbar
+    android:id="@+id/tool_bar_edit"
+    android:layout_width="match_parent"
+    android:layout_height="?attr/actionBarSize"
+    android:background="@color/colorBackgroundToolBar"
+    app:titleTextColor="@color/colorText_toolbar"
+    app:title="Edit Profile">
 
-</android.support.constraint.ConstraintLayout>
+</android.support.v7.widget.Toolbar>
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_weight="1"
+        android:orientation="horizontal"
+        android:weightSum="4">
+        <TextView
+
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:layout_weight="1"
+            android:text="@string/name"
+            android:gravity="center_vertical"
+            android:textStyle="bold"/>
+        <EditText
+            android:id="@+id/edt_name_edit"
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:layout_weight="3"/>
+    </LinearLayout>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_weight="1"
+        android:orientation="horizontal"
+        android:weightSum="4">
+        <TextView
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:layout_weight="1"
+            android:text="@string/email"
+            android:gravity="center_vertical"
+            android:textStyle="bold"/>
+        <EditText
+            android:id="@+id/edt_email_edit"
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:layout_weight="3"/>
+    </LinearLayout>
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_weight="1"
+        android:orientation="horizontal"
+        android:weightSum="4">
+        <TextView
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:layout_weight="1"
+            android:text="@string/address"
+            style="@style/label_text"
+           />
+        <EditText
+            android:id="@+id/edt_address_edit"
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:layout_weight="3"/>
+    </LinearLayout>
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_weight="1"
+        android:orientation="horizontal"
+        android:weightSum="3"
+        android:layout_marginTop="70sp"
+        android:gravity="center">
+
+        <Button
+            android:id="@+id/btn_back_edit"
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:layout_weight="1"
+            style="@style/buttonStyle"
+            android:layout_marginRight="70dp"
+            android:text="@string/text_btn_back"
+            />
+        <Button
+            android:id="@+id/btn_save_edit"
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:layout_weight="1"
+            style="@style/buttonStyle"
+            android:text="@string/label_save"
+            />
+
+    </LinearLayout>
+
+
+
+</LinearLayout>

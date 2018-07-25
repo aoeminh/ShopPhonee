@@ -1,6 +1,6 @@
 package com.example.apple.shopphonee.model;
 
 public interface DataLogin {
-    void dataLogin(boolean check);
+    void dataLogin(boolean checkm, Account account);
 
 }
