@@ -40,5 +40,6 @@
     <string name="name">Name:</string>
     <string name="label_save">Save</string>
     <string name="total_bills">Total bills:</string>
+    <string name="date">Date</string>
 
 </resources>

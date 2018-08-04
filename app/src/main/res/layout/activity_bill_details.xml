@@ -1,0 +1,68 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".activity.BillDetails"
+    android:orientation="vertical"
+    android:weightSum="10"
+    >
+    <android.support.v7.widget.Toolbar
+        android:layout_width="match_parent"
+        android:layout_height="?attr/actionBarSize"
+        app:title="Bill Details"
+        app:titleTextColor="@color/colorText_toolbar"
+        android:background="@color/colorBackgroundToolBar"/>
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_weight="1"
+        android:orientation="horizontal"
+        android:weightSum="4"
+        android:layout_marginLeft="5dp">
+        <TextView
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:layout_weight="2"
+            android:text="Product name"
+            style="@style/label_text_bill_details"
+            android:background="@drawable/text_bill_details_border"/>
+        <TextView
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:layout_weight="0.8"
+            android:text="Quantily"
+            style="@style/label_text_bill_details"
+
+            android:background="@drawable/text_bill_details_border"/>
+        />
+        <TextView
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:layout_weight="0.6"
+            android:text="Price"
+            style="@style/label_text_bill_details"
+            android:background="@drawable/text_bill_details_border"/>
+        />
+
+        <TextView
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:layout_weight="0.6"
+            android:text="Total"
+            style="@style/label_text_bill_details"
+            android:background="@drawable/text_bill_details_border"/>
+        />
+
+    </LinearLayout>
+    <android.support.v7.widget.RecyclerView
+        android:id="@+id/rv_bill_details"
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_weight="9"
+        android:layout_marginLeft="5dp"
+       />
+
+
+</LinearLayout>

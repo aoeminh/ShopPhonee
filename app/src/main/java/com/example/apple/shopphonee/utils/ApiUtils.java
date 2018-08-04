@@ -20,7 +20,10 @@ import org.json.JSONException;
 import org.json.JSONObject;
 
 import java.io.IOException;
+import java.text.DateFormat;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Calendar;
 import java.util.List;
 
 import okhttp3.ResponseBody;
@@ -34,18 +37,10 @@ public class ApiUtils {
 //
 //192.168.0.104
     //10.22.185.162
-    private final static String BASE_URL = "http://192.168.100.31/server/";
+    private final static String BASE_URL = "http://192.168.0.115/server/";
 
     public static APIService getAPIService() {
         return RetrofitClient.getRetrofitClient(BASE_URL).create(APIService.class);
-    }
-
-    public ArrayList<Integer> getArrQuantily() {
-        ArrayList<Integer> integers = new ArrayList<Integer>();
-        for (int i = 1; i <= 10; i++) {
-            integers.add(i);
-        }
-        return integers;
     }
 
     public static void loadImage(String url, ImageView imageView, Context context) {
@@ -62,48 +57,6 @@ public class ApiUtils {
 
         product = new Product(id, name, price, image, description, category);
         return product;
-    }
-
-
-    public void login(String username, String password, final DataLogin dataLogin) {
-
-        ApiUtils.getAPIService().loginAccount(username, password).enqueue(new Callback<ResponseBody>() {
-            @Override
-            public void onResponse(Call<ResponseBody> call, Response<ResponseBody> response) {
-                if (response.isSuccessful()) {
-                    try {
-
-                        JSONObject jsonObject = new JSONObject(response.body().string());
-                        int status = jsonObject.getInt("success");
-                        Log.i("status", String.valueOf(status));
-                        if (status == 1) {
-                            String username = jsonObject.getString("username");
-                            String phone = jsonObject.getString("phone");
-                            String email = jsonObject.getString("email");
-                            String address = jsonObject.getString("address");
-
-
-
-//                            dataLogin.dataLogin(true);
-
-                        } else {
-//                            dataLogin.dataLogin(false);
-
-                        }
-
-                    } catch (JSONException e) {
-                        e.printStackTrace();
-                    } catch (IOException e) {
-                        e.printStackTrace();
-                    }
-                }
-            }
-
-            @Override
-            public void onFailure(Call<ResponseBody> call, Throwable t) {
-                Log.i("error", t.getMessage());
-            }
-        });
     }
 
 }

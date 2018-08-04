@@ -1,5 +1,7 @@
 package com.example.apple.shopphonee.model;
 
+import java.util.Date;
+
 public class Bills {
 
     private  int id;
@@ -8,6 +10,15 @@ public class Bills {
     private String customerAddress;
     private int totalBill;
     private  String note;
+    private String date;
+
+    public String getDate() {
+        return date;
+    }
+
+    public void setDate(String date) {
+        this.date = date;
+    }
 
     public int getId() {
         return id;

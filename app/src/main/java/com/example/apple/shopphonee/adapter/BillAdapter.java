@@ -11,6 +11,7 @@ import android.widget.TextView;
 import com.example.apple.shopphonee.R;
 import com.example.apple.shopphonee.model.Bills;
 
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -18,6 +19,7 @@ public class BillAdapter extends RecyclerView.Adapter<BillAdapter.ViewHolder> {
 
     private List<Bills> billsList = new ArrayList<>();
     private Context context;
+    private OnBillListener onBillListener;
 
     public BillAdapter(Context context, List<Bills> list){
         this.context = context;
@@ -42,6 +44,8 @@ public class BillAdapter extends RecyclerView.Adapter<BillAdapter.ViewHolder> {
         holder.tvAddress.setText(bills.getCustomerAddress());
         holder.tvNote.setText(bills.getNote());
         holder.tvTotalBill.setText(String.valueOf(bills.getTotalBill()));
+
+        holder.tvDate.setText(bills.getDate());
     }
 
     @Override
@@ -51,9 +55,7 @@ public class BillAdapter extends RecyclerView.Adapter<BillAdapter.ViewHolder> {
 
     class ViewHolder extends RecyclerView.ViewHolder{
 
-        private TextView tvName,tvPhone,tvAddress,tvTotalBill,tvNote;
-
-
+        private TextView tvName,tvPhone,tvAddress,tvTotalBill,tvNote,tvDate;
         public ViewHolder(View itemView) {
             super(itemView);
 
@@ -62,11 +64,30 @@ public class BillAdapter extends RecyclerView.Adapter<BillAdapter.ViewHolder> {
             tvAddress = itemView.findViewById(R.id.address_list_bill);
             tvTotalBill = itemView.findViewById(R.id.total_list_bill);
             tvNote = itemView.findViewById(R.id.note_list_bill);
+            tvDate = itemView.findViewById(R.id.date_list_bill);
+
+            itemView.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    Bills bills = billsList.get(getAdapterPosition());
+                    onBillListener.getBillID(bills.getId());
+                }
+            });
+
         }
     }
-
         public void updateList(List<Bills> list){
         billsList = list;
         notifyDataSetChanged();
     }
+
+    public interface OnBillListener{
+        void getBillID(int id);
+    }
+
+    public void getBillID( OnBillListener onBillListener){
+        this.onBillListener = onBillListener;
+
+    }
+
 }

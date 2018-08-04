@@ -1,5 +1,6 @@
 package com.example.apple.shopphonee.activity;
 
+import android.content.Intent;
 import android.content.SharedPreferences;
 import android.support.annotation.NonNull;
 import android.support.v7.app.AppCompatActivity;
@@ -53,6 +54,14 @@ public class ListBills extends BaseActivity {
 
     @Override
     void setAction() {
+        adapter.getBillID(new BillAdapter.OnBillListener() {
+            @Override
+            public void getBillID(int id) {
+                Intent intent = new Intent(ListBills.this,BillDetails.class);
+                intent.putExtra("billID",id);
+                startActivity(intent);
+            }
+        });
 
     }
 
@@ -64,9 +73,10 @@ public class ListBills extends BaseActivity {
                 if (response.isSuccessful()) {
 
                     billsList = response.body();
-                    Log.i("LIST", response.body().get(1).getCustomerName());
-                    adapter.updateList(billsList);
-                    adapter.notifyDataSetChanged();
+                    if(billsList.size()>0){
+                        adapter.updateList(billsList);
+                        adapter.notifyDataSetChanged();
+                    }
 
                 }
             }
@@ -78,4 +88,5 @@ public class ListBills extends BaseActivity {
         });
 
     }
+
 }

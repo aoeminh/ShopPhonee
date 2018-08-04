@@ -1,5 +1,6 @@
 package com.example.apple.shopphonee.model;
 
+import java.util.Date;
 import java.util.List;
 
 import okhttp3.ResponseBody;
@@ -40,7 +41,7 @@ public interface APIService {
 
     //insert to bill
     @FormUrlEncoded
-    @POST("insert.php")
+    @POST("insert1.php")
     Call<ResponseBody> insertBill(@Field("username") String username, @Field("phone_number") String phoneNumber,
                                   @Field("totalBill") int totalBill, @Field("address") String address,
                                   @Field("note") String note);
@@ -56,10 +57,17 @@ public interface APIService {
     @POST("getListBill.php")
     Call<List<Bills>> getListBill(@Field("phone") String username);
 
-    // insert bill detail to database
+    // insert bills to database
     @FormUrlEncoded
-    @POST("insertBillDetail")
-    Call<ResponseBody> inserBillDetail(@Field("productID") int id, @Field("productName") String productName,
+    @POST("insertBillDetail.php")
+    Call<ResponseBody> inserBillDetail(@Field("billID")int billID ,@Field("productID") int id, @Field("name") String productName,
                                        @Field("productPrice") int price,@Field("quantily") int quantily,
                                        @Field("totalRow") int totalRow );
+
+    //get billdetails
+    @FormUrlEncoded
+    @POST("getBillDetails.php")
+    Call<List<BillDetail>> getBillDetails(@Field("billID") int billID);
+
 }
+

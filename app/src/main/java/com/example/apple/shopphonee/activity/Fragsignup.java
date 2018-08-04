@@ -18,7 +18,6 @@ import android.widget.Toast;
 import com.example.apple.shopphonee.R;
 import com.example.apple.shopphonee.model.Account;
 import com.example.apple.shopphonee.model.DataLogin;
-import com.example.apple.shopphonee.model.DataRegister;
 import com.example.apple.shopphonee.utils.Constant;
 import com.example.apple.shopphonee.utils.UtilsSharePref;
 

@@ -22,6 +22,11 @@
         <item name="android:textStyle">bold</item>
         <item name="android:gravity">center_vertical</item>
     </style>
+    <style name="label_text_bill_details">
+        <item name="android:textStyle">bold</item>
+        <item name="android:gravity">center_vertical</item>
+        <item name="android:paddingLeft">5dp</item>
+    </style>
 
 
 

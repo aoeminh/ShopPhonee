@@ -3,11 +3,6 @@ package com.example.apple.shopphonee.activity;
 import android.app.Fragment;
 import android.app.FragmentManager;
 import android.app.FragmentTransaction;
-import android.content.Context;
-import android.content.Intent;
-import android.content.SharedPreferences;
-import android.graphics.Color;
-import android.preference.PreferenceManager;
 import android.support.v7.widget.Toolbar;
 import android.util.Log;
 import android.view.View;
@@ -16,11 +11,8 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.example.apple.shopphonee.R;
-import com.example.apple.shopphonee.model.APIService;
 import com.example.apple.shopphonee.model.Account;
 import com.example.apple.shopphonee.model.DataLogin;
-import com.example.apple.shopphonee.model.DataRegister;
-import com.example.apple.shopphonee.model.RetrofitClient;
 import com.example.apple.shopphonee.utils.ApiUtils;
 
 import org.json.JSONException;

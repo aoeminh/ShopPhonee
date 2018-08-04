@@ -66,7 +66,6 @@ public class Fragsignin extends Fragment implements View.OnClickListener {
         }
         if (id == R.id.btn_login) {
 
-
             boolean validation = validation(username, password);
             if (validation) {
                 LoginActivity loginActivity = new LoginActivity();

@@ -3,6 +3,7 @@ package com.example.apple.shopphonee.activity;
 import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
+import android.database.sqlite.SQLiteDatabase;
 import android.support.annotation.NonNull;
 import android.support.design.widget.NavigationView;
 import android.support.v4.content.ContextCompat;
@@ -25,6 +26,8 @@ import com.bumptech.glide.Glide;
 import com.example.apple.shopphonee.R;
 import com.example.apple.shopphonee.adapter.NavigationAdapter;
 import com.example.apple.shopphonee.adapter.HomeAdapter;
+import com.example.apple.shopphonee.database.SQLiteUtils;
+import com.example.apple.shopphonee.database.ShopSQLiteHelper;
 import com.example.apple.shopphonee.model.APIService;
 import com.example.apple.shopphonee.model.Account;
 import com.example.apple.shopphonee.model.Cart;
@@ -55,9 +58,15 @@ public class MainActivity extends BaseActivity {
     public static List<Product> phones = new ArrayList<Product>();
     private ApiUtils apiUtils;
     SharedPreferences sharedPreferences;
-    public static Account accountMain = new Account();
     public static List<Cart> cartList;
+    public static int count=0;
+    @Override
+    public boolean isTaskRoot() {
+        return super.isTaskRoot();
+    }
 
+    SQLiteUtils sqLiteUtils = new SQLiteUtils(this);
+    ShopSQLiteHelper shopSQLiteHelper = new ShopSQLiteHelper(this);
 
     @Override
     void initView() {
@@ -69,11 +78,17 @@ public class MainActivity extends BaseActivity {
         drawerLayout = (DrawerLayout) this.findViewById(R.id.drawer_layout);
         listPhone = (RecyclerView) this.findViewById(R.id.rv_recycler_view_home);
         sharedPreferences = UtilsSharePref.getSharedPreferences(this);
+        sqLiteUtils.open();
+
+        count++;
         //intilizae listcart
         if (cartList == null) {
             cartList = new ArrayList<>();
         }
         //intilize apiservice
+        if(count==1){
+          cartList =sqLiteUtils.getAll();
+        }
         apiService = ApiUtils.getAPIService();
 
         //navigation
@@ -228,5 +243,32 @@ public class MainActivity extends BaseActivity {
         }
 
         return super.onOptionsItemSelected(item);
+    }
+
+    @Override
+    protected void onStart() {
+        super.onStart();
+        Log.i("onStart","onStart");
+
+    }
+
+    @Override
+    protected void onStop() {
+        super.onStop();
+        Log.i("onStop","onStop");
+    }
+
+    @Override
+    protected void onDestroy() {
+        super.onDestroy();
+//      sqLiteUtils.deleteAll();
+//        for (int i = 0; i < MainActivity.cartList.size(); i++) {
+//            Cart cart = MainActivity.cartList.get(i);
+//            sqLiteUtils.addCart(cart);
+//            Log.i("test", "ok");
+//        }
+//        Log.i("onDestroy","onDestroy");
+
+
     }
 }

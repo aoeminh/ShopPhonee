@@ -16,6 +16,7 @@ import android.widget.Toast;
 
 import com.example.apple.shopphonee.R;
 import com.example.apple.shopphonee.adapter.ShoppingCartAdapter;
+import com.example.apple.shopphonee.database.SQLiteUtils;
 import com.example.apple.shopphonee.model.Cart;
 import com.example.apple.shopphonee.model.Product;
 import com.example.apple.shopphonee.utils.Constant;
@@ -49,6 +50,8 @@ public class ShoppingActivity extends BaseActivity implements View.OnClickListen
             listShopping_rv.setVisibility(View.VISIBLE);
             empty_text.setVisibility(View.GONE);
         }
+        sqLiteUtils.open();
+
         adapter = new ShoppingCartAdapter(this, MainActivity.cartList);
         LinearLayoutManager layoutManager = new LinearLayoutManager(this);
         layoutManager.setOrientation(LinearLayoutManager.VERTICAL);
@@ -56,7 +59,6 @@ public class ShoppingActivity extends BaseActivity implements View.OnClickListen
         listShopping_rv.setAdapter(adapter);
         setTotalBill();
         sharedPreerences = UtilsSharePref.getSharedPreferences(this);
-
     }
 
     @Override
@@ -94,13 +96,32 @@ public class ShoppingActivity extends BaseActivity implements View.OnClickListen
             startActivity(intent);
         }
         if(id==R.id.btn_pay){
-            if(sharedPreerences.getBoolean(Constant.LOGGED_IN,false)){
-                Intent intent = new Intent(this,PayActivity.class);
-                startActivity(intent);
-            }else{
-                Intent intent = new Intent(this,LoginActivity.class);
-                startActivity(intent);
+            if(MainActivity.cartList.size() >0){
+
+                if(sharedPreerences.getBoolean(Constant.LOGGED_IN,false)){
+                    Intent intent = new Intent(this,PayActivity.class);
+                    startActivity(intent);
+                }else{
+                    Intent intent = new Intent(this,LoginActivity.class);
+                    startActivity(intent);
+                }
+            }else {
+                Toast.makeText(ShoppingActivity.this,"Cart is empty!",Toast.LENGTH_SHORT).show();
             }
         }
     }
+
+    @Override
+    protected void onDestroy() {
+        super.onDestroy();
+        sqLiteUtils.deleteAll();
+        for (int i = 0; i < MainActivity.cartList.size(); i++) {
+            Cart cart = MainActivity.cartList.get(i);
+            sqLiteUtils.addCart(cart);
+            Log.i("test", "ok");
+        }
+        Log.i("onDestroy","onDestroy");
+        sqLiteUtils.close();
+    }
+
 }

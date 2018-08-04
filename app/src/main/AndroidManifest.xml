@@ -12,22 +12,43 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
-        <activity android:name=".activity.MainActivity">
+        <activity
+            android:name=".activity.MainActivity"
+            android:screenOrientation="portrait">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-        <activity android:name=".activity.ShoppingActivity" />
-        <activity android:name=".activity.DetailProduct" />
-        <activity android:name=".activity.PhoneActivity" />
-        <activity android:name=".activity.LaptopActivity" />
-        <activity android:name=".activity.PayActivity" />
-        <activity android:name=".activity.ProfileActivity" />
-        <activity android:name=".activity.LoginActivity" />
-        <activity android:name=".activity.ListBills" />
-        <activity android:name=".activity.EditProfile"></activity>
+        <activity
+            android:name=".activity.ShoppingActivity"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name=".activity.DetailProduct"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name=".activity.PhoneActivity"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name=".activity.LaptopActivity"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name=".activity.PayActivity"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name=".activity.ProfileActivity"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name=".activity.LoginActivity"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name=".activity.ListBills"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name=".activity.EditProfile"
+            android:screenOrientation="portrait" />
+        <activity android:name=".activity.BillDetails"></activity>
     </application>
 
 </manifest>

@@ -17,12 +17,20 @@
         >
 
     </android.support.v7.widget.Toolbar>
+
+
+    <EditText
+        android:id="@+id/edt_search_laptop"
+        android:layout_width="match_parent"
+        android:layout_height="50dp"
+        android:layout_below="@id/toolbar_laptop"/>
     <android.support.v7.widget.RecyclerView
         android:id="@+id/rv_laptop"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:visibility="invisible"
-        android:layout_below="@+id/toolbar_laptop">
+        android:layout_marginTop="10dp"
+        android:layout_below="@+id/edt_search_laptop">
 
     </android.support.v7.widget.RecyclerView>
     <ProgressBar
@@ -30,6 +38,7 @@
         android:layout_width="match_parent"
         android:layout_height="50dp"
         android:layout_centerInParent="true"/>
+
 
 
 </RelativeLayout>
