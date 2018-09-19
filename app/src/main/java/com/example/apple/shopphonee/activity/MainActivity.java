@@ -20,6 +20,8 @@ import android.view.View;
 import android.view.animation.Animation;
 import android.view.animation.AnimationUtils;
 import android.widget.ImageView;
+import android.widget.LinearLayout;
+import android.widget.TextView;
 import android.widget.ViewFlipper;
 
 import com.bumptech.glide.Glide;
@@ -32,14 +34,18 @@ import com.example.apple.shopphonee.model.APIService;
 import com.example.apple.shopphonee.model.Account;
 import com.example.apple.shopphonee.model.Cart;
 import com.example.apple.shopphonee.model.Category;
+import com.example.apple.shopphonee.model.OnPosListener;
 import com.example.apple.shopphonee.model.Product;
 import com.example.apple.shopphonee.utils.ApiUtils;
 import com.example.apple.shopphonee.utils.Constant;
 import com.example.apple.shopphonee.utils.UtilsSharePref;
 
+import java.io.Serializable;
+import java.time.chrono.MinguoChronology;
 import java.util.ArrayList;
 import java.util.List;
 
+import de.hdodenhof.circleimageview.CircleImageView;
 import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
@@ -54,6 +60,8 @@ public class MainActivity extends BaseActivity {
     private APIService apiService;
     private NavigationAdapter adapter;
     private HomeAdapter phoneAdapter;
+    TextView userNameNavTv;
+    CircleImageView userAvatarIm;
     private List<Category> categories = new ArrayList<Category>();
     public static List<Product> phones = new ArrayList<Product>();
     private ApiUtils apiUtils;
@@ -71,14 +79,21 @@ public class MainActivity extends BaseActivity {
     @Override
     void initView() {
 
-        toolbar = (android.support.v7.widget.Toolbar) this.findViewById(R.id.toolbar_home);
-        viewFlipper = (ViewFlipper) this.findViewById(R.id.viewFliper_home);
-        navigationView = (NavigationView) this.findViewById(R.id.navigationview);
-        listView = (RecyclerView) this.findViewById(R.id.list_view_navigation);
-        drawerLayout = (DrawerLayout) this.findViewById(R.id.drawer_layout);
-        listPhone = (RecyclerView) this.findViewById(R.id.rv_recycler_view_home);
+        toolbar =  this.findViewById(R.id.toolbar_home);
+        viewFlipper = this.findViewById(R.id.viewFliper_home);
+        navigationView = this.findViewById(R.id.navigationview);
+        listView =  this.findViewById(R.id.list_view_navigation);
+        drawerLayout =  this.findViewById(R.id.drawer_layout);
+        listPhone = this.findViewById(R.id.rv_recycler_view_home);
+        userNameNavTv  = findViewById(R.id.tv_username_nav);
+        userAvatarIm = findViewById(R.id.im_avatar_nav);
         sharedPreferences = UtilsSharePref.getSharedPreferences(this);
         sqLiteUtils.open();
+
+        //init info in navigationminh1992
+
+        userNameNavTv.setText(sharedPreferences.getString(Constant.NAME,""));
+        Glide.with(this).load(sharedPreferences.getString(Constant.IMAGE,"")).into(userAvatarIm);
 
         count++;
         //intilizae listcart
@@ -108,6 +123,7 @@ public class MainActivity extends BaseActivity {
 
     //init view navigation
     void initViewNavigation() {
+
         adapter = new NavigationAdapter(categories, MainActivity.this);
         LinearLayoutManager layoutManager = new LinearLayoutManager(getApplicationContext());
         layoutManager.setOrientation(LinearLayoutManager.VERTICAL);
@@ -169,6 +185,16 @@ public class MainActivity extends BaseActivity {
             @Override
             public void onClick(View v) {
                 drawerLayout.openDrawer(GravityCompat.START);
+            }
+        });
+
+        phoneAdapter.getPositionHome(new OnPosListener() {
+            @Override
+            public void getPositioin(int position) {
+                Product product = phones.get(position);
+                Intent intent = new Intent(MainActivity.this,DetailProduct.class);
+                intent.putExtra("product", (Serializable) product);
+                startActivity(intent);
             }
         });
     }
@@ -245,30 +271,6 @@ public class MainActivity extends BaseActivity {
         return super.onOptionsItemSelected(item);
     }
 
-    @Override
-    protected void onStart() {
-        super.onStart();
-        Log.i("onStart","onStart");
-
-    }
-
-    @Override
-    protected void onStop() {
-        super.onStop();
-        Log.i("onStop","onStop");
-    }
-
-    @Override
-    protected void onDestroy() {
-        super.onDestroy();
-//      sqLiteUtils.deleteAll();
-//        for (int i = 0; i < MainActivity.cartList.size(); i++) {
-//            Cart cart = MainActivity.cartList.get(i);
-//            sqLiteUtils.addCart(cart);
-//            Log.i("test", "ok");
-//        }
-//        Log.i("onDestroy","onDestroy");
 
 
-    }
 }

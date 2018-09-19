@@ -1,5 +1,6 @@
 package com.example.apple.shopphonee.activity;
 
+import android.content.Intent;
 import android.support.annotation.NonNull;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
@@ -16,9 +17,11 @@ import android.widget.ProgressBar;
 
 import com.example.apple.shopphonee.R;
 import com.example.apple.shopphonee.adapter.PhoneAdapter;
+import com.example.apple.shopphonee.model.OnPosListener;
 import com.example.apple.shopphonee.model.Product;
 import com.example.apple.shopphonee.utils.ApiUtils;
 
+import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -95,6 +98,16 @@ public class PhoneActivity extends BaseActivity {
 
                 adapter.updateList(listSearch);
                 adapter.notifyDataSetChanged();
+            }
+        });
+
+        adapter.getPosition(new OnPosListener() {
+            @Override
+            public void getPositioin(int position) {
+                Product product = phones.get(position);
+                Intent intent = new Intent(PhoneActivity.this,DetailProduct.class);
+                intent.putExtra("product", (Serializable) product);
+                startActivity(intent);
             }
         });
     }

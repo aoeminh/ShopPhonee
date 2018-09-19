@@ -1,5 +1,6 @@
 package com.example.apple.shopphonee.activity;
 
+import android.content.Intent;
 import android.support.annotation.NonNull;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
@@ -13,9 +14,11 @@ import android.widget.ProgressBar;
 
 import com.example.apple.shopphonee.R;
 import com.example.apple.shopphonee.adapter.PhoneAdapter;
+import com.example.apple.shopphonee.model.OnPosListener;
 import com.example.apple.shopphonee.model.Product;
 import com.example.apple.shopphonee.utils.ApiUtils;
 
+import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -107,6 +110,16 @@ public class LaptopActivity extends BaseActivity {
             @Override
             public void afterTextChanged(Editable s) {
 
+            }
+        });
+
+        adapter.getPosition(new OnPosListener() {
+            @Override
+            public void getPositioin(int position) {
+                Product product = laptops.get(position);
+                Intent intent = new Intent(LaptopActivity.this,DetailProduct.class);
+                intent.putExtra("product", (Serializable) product);
+                startActivity(intent);
             }
         });
     }

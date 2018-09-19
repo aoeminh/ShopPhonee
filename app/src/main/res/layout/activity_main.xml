@@ -26,47 +26,80 @@
         <ViewFlipper
             android:id="@+id/viewFliper_home"
             android:layout_width="match_parent"
-            android:layout_height="200dp">
-
+            android:layout_height="@dimen/view_filper_height">
 
         </ViewFlipper>
         <LinearLayout
             android:orientation="vertical"
             android:layout_width="match_parent"
-            android:layout_height="match_parent">
+            android:layout_height="match_parent"
+            android:weightSum="10"
+            >
             <TextView
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:text="List Product"
+                android:layout_height="0dp"
+                android:text="Hot Product"
+                android:textColor="#ff0000"
                 android:textStyle="bold"
-                android:layout_marginLeft="10dp"
-                android:textSize="20sp"/>
+                android:layout_weight="1"
+                android:layout_marginLeft="@dimen/label_list_product_margin_left"
+                android:textSize="@dimen/label_list_product_text_size"/>
             <android.support.v7.widget.RecyclerView
                 android:id="@+id/rv_recycler_view_home"
                 android:layout_width="match_parent"
-                android:layout_height="match_parent">
+                android:layout_height="0dp"
+                android:layout_weight="9">
             </android.support.v7.widget.RecyclerView>
         </LinearLayout>
         
     </LinearLayout>
     <android.support.design.widget.NavigationView
         android:id="@+id/navigationview"
-        android:layout_width="300dp"
+        android:layout_width="@dimen/navigation_view_width"
         android:layout_height="match_parent"
         android:layout_gravity="left"
         >
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:orientation="vertical">
-
+            android:orientation="vertical"
+            android:weightSum="10">
+           <!--<include-->
+               <!--layout="@layout/layout_avatar_navigation"-->
+               <!--android:layout_width="match_parent"-->
+               <!--android:layout_height="0dp"-->
+               <!--android:layout_weight="4"-->
+               <!--/>-->
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="0dp"
+                android:layout_weight="4"
+                android:background="@drawable/sky_background"
+                android:orientation="vertical"
+                android:paddingTop="30dp"
+               >
+                <de.hdodenhof.circleimageview.CircleImageView
+                    android:id="@+id/im_avatar_nav"
+                    android:layout_width="80dp"
+                    android:layout_height="80dp"
+                    android:layout_marginLeft="40dp"
+                    android:scaleType="centerCrop"
+                    />
+                <TextView
+                    android:id="@+id/tv_username_nav"
+                    android:layout_width="match_parent"
+                    android:layout_height="0dp"
+                    android:layout_weight="2"
+                    android:textSize="30sp"
+                    android:layout_marginLeft="40dp"/>
+            </LinearLayout>
             <TextView
                 android:id="@+id/profile_name"
                 android:layout_width="match_parent"
-                android:layout_height="50dp"
-                android:text="Category"
+                android:layout_height="@dimen/row_item_navigation_text_size"
+                android:text="@string/category"
                 android:gravity="center"
-                android:textSize="25sp"
+                android:textSize="@dimen/tv_category_text_size"
                 android:textStyle="bold"/>
             <android.support.v7.widget.RecyclerView
                 android:id="@+id/list_view_navigation"

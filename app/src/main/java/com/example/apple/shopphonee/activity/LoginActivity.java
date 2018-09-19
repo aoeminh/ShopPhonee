@@ -11,6 +11,8 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.example.apple.shopphonee.R;
+import com.example.apple.shopphonee.fragment.SignInFragment;
+import com.example.apple.shopphonee.fragment.SignUpFragment;
 import com.example.apple.shopphonee.model.Account;
 import com.example.apple.shopphonee.model.DataLogin;
 import com.example.apple.shopphonee.utils.ApiUtils;
@@ -73,11 +75,11 @@ public class LoginActivity extends BaseActivity implements View.OnClickListener 
 
         }
         if (id == R.id.btn_signin) {
-            fragment = new Fragsignin();
+            fragment = new SignInFragment();
             Toast.makeText(this, "signin", Toast.LENGTH_SHORT).show();
         }
         if (id == R.id.btn_signup) {
-            fragment = new Fragsignup();
+            fragment = new SignUpFragment();
             Toast.makeText(this, "signup", Toast.LENGTH_SHORT).show();
         }
 
@@ -92,26 +94,30 @@ public class LoginActivity extends BaseActivity implements View.OnClickListener 
             public void onResponse(Call<ResponseBody> call, Response<ResponseBody> response) {
                 if (response.isSuccessful()) {
                     try {
-
                         JSONObject jsonObject = new JSONObject(response.body().string());
                         int status = jsonObject.getInt("success");
                         Log.i("status", String.valueOf(status));
                         if (status == 1) {
+                            int id = jsonObject.getInt("id");
                             String username = jsonObject.getString("username");
                             String phone = jsonObject.getString("phone");
                             String email = jsonObject.getString("email");
                             String address = jsonObject.getString("address");
-
+                            String image = jsonObject.getString("image");
+                            account.setId(id);
                             account.setUsername(username);
                             account.setPhoneNumber(phone);
                             account.setAddress(address);
-                            account.setEmail(email);
+                            account.setEmail(username);
+                            account.setImage(image);
 
-                            dataLogin.dataLogin(true,account);
+
+                            dataLogin.dataLogin(true, account);
+                            finish();
 
                         } else {
-                            dataLogin.dataLogin(false,account);
-
+                            dataLogin.dataLogin(false, account);
+                            finish();
                         }
 
                     } catch (JSONException e) {
@@ -129,7 +135,7 @@ public class LoginActivity extends BaseActivity implements View.OnClickListener 
         });
     }
 
-    public  void registter(String username, String password, final DataLogin dataLogin) {
+    public void registter(String username, String password, final DataLogin dataLogin) {
         ApiUtils.getAPIService().registerAccount(username, password).enqueue(new Callback<ResponseBody>() {
             @Override
             public void onResponse(Call<ResponseBody> call, Response<ResponseBody> response) {
@@ -140,21 +146,26 @@ public class LoginActivity extends BaseActivity implements View.OnClickListener 
                         int status = jsonObject.getInt("success");
                         Log.i("status", String.valueOf(status));
                         if (status == 1) {
+                            int id = jsonObject.getInt("id");
                             String username = jsonObject.getString("username");
                             String phone = jsonObject.getString("phone");
                             String email = jsonObject.getString("email");
                             String address = jsonObject.getString("address");
-
+                            String image = jsonObject.getString("image");
+                            account.setId(id);
                             account.setUsername(username);
                             account.setPhoneNumber(phone);
                             account.setAddress(address);
                             account.setEmail(email);
-                            dataLogin.dataLogin(true,account);
+                            account.setImage(image);
+                            dataLogin.dataLogin(true, account);
+                            finish();
 
                         } else {
                             Log.i("status", String.valueOf(status));
 
-                            dataLogin.dataLogin(false,account);
+                            dataLogin.dataLogin(false, account);
+                            finish();
                         }
 
                     } catch (JSONException e) {

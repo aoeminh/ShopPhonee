@@ -20,13 +20,39 @@
         android:layout_height="match_parent"
         android:orientation="vertical"
         android:weightSum="10">
+        <LinearLayout
+            android:id="@+id/layout_check_all"
+            android:layout_width="match_parent"
+            android:layout_height="0dp"
+            android:layout_weight="1"
+            android:orientation="horizontal"
+            android:weightSum="6"
+            android:visibility="gone">
+
+            <CheckBox
+                android:id="@+id/cb_delete"
+                android:layout_width="0dp"
+                android:layout_height="match_parent"
+                android:layout_weight="1"
+
+                />
+            <TextView
+                android:layout_width="0dp"
+                android:layout_height="match_parent"
+                android:layout_weight="5"
+                android:text="@string/select_all"
+                style="@style/label_text"
+                android:textSize="@dimen/lable_select_all_text_size"
+                android:textColor="#000"/>
+        </LinearLayout>
+
         <TextView
             android:id="@+id/tv_empty_shopping"
             android:layout_width="match_parent"
             android:layout_height="0dp"
-            android:layout_weight="7"
+            android:layout_weight="8"
 
-            android:text="Cart empty"
+            android:text="@string/cart_empty"
             android:textSize="30sp"
             android:gravity="center"/>
         <android.support.v7.widget.RecyclerView
@@ -52,8 +78,8 @@
                 android:layout_marginLeft="5dp"
                 android:layout_weight="0.5"
                 android:gravity="center_vertical"
-                android:text="Total: "
-                android:textSize="25sp"
+                android:text="@string/total"
+                android:textSize="@dimen/lable_price_shop_text_size"
                 android:textStyle="bold" />
 
             <TextView
@@ -62,31 +88,50 @@
                 android:layout_height="match_parent"
                 android:layout_margin="5dp"
                 android:layout_weight="1.5"
-                android:text="0$"
+
                 android:textAlignment="textEnd"
                 android:textColor="#ddfa0303"
-                android:textSize="20sp"
+                android:textSize="@dimen/lable_price_shop_text_size"
 
                 android:textStyle="bold" />
         </LinearLayout>
-
-        <Button
-            android:id="@+id/btn_pay"
-            style="@style/buttonStyle"
+        <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="0dp"
-            android:layout_margin="5dp"
             android:layout_weight="1"
-            android:text="@string/label_btn_buy" />
+            android:orientation="horizontal"
+            android:weightSum="6"
+            android:gravity="center_horizontal"
+            >
+            <Button
+                android:id="@+id/btn_delete_all"
+                style="@style/buttonStyle"
+                android:layout_width="wrap_content"
+                android:layout_height="match_parent"
+                android:layout_margin="5dp"
+                android:layout_weight="1"
+                android:text="@string/delete" />
+            <Button
+                android:id="@+id/btn_pay"
+                style="@style/buttonStyle"
+                android:layout_width="wrap_content"
+                android:layout_height="match_parent"
+                android:layout_margin="5dp"
+                android:layout_weight="1"
+                android:text="@string/label_btn_buy" />
 
-        <Button
-            android:id="@+id/btn_back_home"
-            style="@style/buttonStyle"
-            android:layout_width="match_parent"
-            android:layout_height="0dp"
-            android:layout_margin="5dp"
-            android:layout_weight="1"
-            android:text="@string/label_btn_home" />
+            <Button
+                android:id="@+id/btn_back_home"
+                style="@style/buttonStyle"
+                android:layout_width="wrap_content"
+                android:layout_height="match_parent"
+                android:layout_margin="5dp"
+                android:layout_weight="1"
+                android:text="@string/label_btn_home" />
+
+
+        </LinearLayout>
+
 
 
     </LinearLayout>

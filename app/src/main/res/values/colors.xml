@@ -9,4 +9,5 @@
     <color name="colorBackgroundToolBar">#36cf07</color>
     <color name="button_pressed">#ccff3700</color>
     <color name="button_focused">#ffffff</color>
+    <color name="text_price_color">#ec0909</color>
 </resources>

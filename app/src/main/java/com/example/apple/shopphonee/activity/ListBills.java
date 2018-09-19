@@ -8,6 +8,8 @@ import android.os.Bundle;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.util.Log;
+import android.view.View;
+import android.widget.LinearLayout;
 import android.widget.TextView;
 
 import com.example.apple.shopphonee.R;
@@ -29,13 +31,15 @@ public class ListBills extends BaseActivity {
     RecyclerView rvListVill;
     private List<Bills> billsList = new ArrayList<>();
     private BillAdapter adapter;
+    LinearLayout layoutProgress,layoutListBill;
     SharedPreferences sharedPreferences;
 
     @Override
     void initView() {
 
         rvListVill = this.findViewById(R.id.rv_list_bills);
-
+        layoutProgress = this.findViewById(R.id.layout_progressBar);
+        layoutListBill = findViewById(R.id.layout_list_bill);
         sharedPreferences = UtilsSharePref.getSharedPreferences(this);
         loadData();
         LinearLayoutManager layoutManager = new LinearLayoutManager(ListBills.this);
@@ -76,6 +80,8 @@ public class ListBills extends BaseActivity {
                     if(billsList.size()>0){
                         adapter.updateList(billsList);
                         adapter.notifyDataSetChanged();
+                        layoutProgress.setVisibility(View.GONE);
+                        layoutListBill.setVisibility(View.VISIBLE);
                     }
 
                 }

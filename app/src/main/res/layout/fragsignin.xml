@@ -19,30 +19,48 @@
         android:gravity="center_vertical"
         android:visibility="gone"
         />
-
-    <EditText
-        android:id="@+id/edt_username_signin"
+    <android.support.design.widget.TextInputLayout
+        android:id="@+id/sign_in_til_username"
         android:layout_width="match_parent"
-        android:layout_height="0dp"
-        android:layout_weight="1.5"
-        android:hint="@string/text_hint_username"
-        android:layout_marginTop="50dp"
-        />
+        android:layout_height="wrap_content"
+        android:layout_marginTop="@dimen/til_username_margin_top"
+        >
 
+        <EditText
+            android:id="@+id/edt_username_signin"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
 
-    <EditText
-        android:inputType="textPassword"
-        android:id="@+id/edt_password_signin"
+            android:hint="@string/text_hint_username"
+            android:layout_marginTop="50dp"
+            />
+
+    </android.support.design.widget.TextInputLayout>
+
+    <android.support.design.widget.TextInputLayout
+        android:id="@+id/sign_in_til_password"
         android:layout_width="match_parent"
-        android:layout_height="0dp"
-        android:layout_weight="1.5"
-        android:hint="@string/text_hint_password"
-        android:layout_marginTop="10dp"
-        />
+        android:layout_height="wrap_content"
+
+        >
+
+        <EditText
+            android:inputType="textPassword"
+            android:id="@+id/edt_password_signin"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+
+            android:hint="@string/text_hint_password"
+            android:layout_marginTop="10dp"
+            />
+
+    </android.support.design.widget.TextInputLayout>
+
+
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="0dp"
-        android:layout_weight="1"
+        android:layout_weight="2"
         android:orientation="horizontal"
         android:weightSum="4"
         android:gravity="center"

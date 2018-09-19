@@ -4,65 +4,111 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".activity.BillDetails"
     android:orientation="vertical"
     android:weightSum="10"
-    >
+    tools:context=".activity.BillDetails">
+
     <android.support.v7.widget.Toolbar
+        android:id="@+id/tool_bar_list_details"
         android:layout_width="match_parent"
         android:layout_height="?attr/actionBarSize"
+        android:background="@color/colorBackgroundToolBar"
         app:title="Bill Details"
-        app:titleTextColor="@color/colorText_toolbar"
-        android:background="@color/colorBackgroundToolBar"/>
+        app:titleTextColor="@color/colorText_toolbar" />
+
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="0dp"
+        android:layout_marginLeft="5dp"
         android:layout_weight="1"
         android:orientation="horizontal"
-        android:weightSum="4"
-        android:layout_marginLeft="5dp">
+        android:weightSum="4">
+
         <TextView
+            style="@style/label_text_bill_details"
             android:layout_width="0dp"
             android:layout_height="match_parent"
             android:layout_weight="2"
-            android:text="Product name"
-            style="@style/label_text_bill_details"
-            android:background="@drawable/text_bill_details_border"/>
+            android:background="@drawable/text_bill_details_border"
+            android:text="Product name" />
+
         <TextView
+            style="@style/label_text_bill_details"
             android:layout_width="0dp"
             android:layout_height="match_parent"
             android:layout_weight="0.8"
-            android:text="Quantily"
-            style="@style/label_text_bill_details"
+            android:background="@drawable/text_bill_details_border"
 
-            android:background="@drawable/text_bill_details_border"/>
-        />
-        <TextView
-            android:layout_width="0dp"
-            android:layout_height="match_parent"
-            android:layout_weight="0.6"
-            android:text="Price"
-            style="@style/label_text_bill_details"
-            android:background="@drawable/text_bill_details_border"/>
+            android:text="Quantily" />
         />
 
         <TextView
+            style="@style/label_text_bill_details"
             android:layout_width="0dp"
             android:layout_height="match_parent"
             android:layout_weight="0.6"
-            android:text="Total"
+            android:background="@drawable/text_bill_details_border"
+            android:text="Price" />
+        />
+
+        <TextView
             style="@style/label_text_bill_details"
-            android:background="@drawable/text_bill_details_border"/>
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:layout_weight="0.6"
+            android:background="@drawable/text_bill_details_border"
+            android:text="Total" />
         />
 
     </LinearLayout>
+
     <android.support.v7.widget.RecyclerView
         android:id="@+id/rv_bill_details"
         android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginLeft="5dp" />
+
+    <LinearLayout
+        android:layout_width="match_parent"
         android:layout_height="0dp"
-        android:layout_weight="9"
-        android:layout_marginLeft="5dp"
-       />
+        android:layout_marginTop="20dp"
+        android:layout_weight="1"
+        android:orientation="horizontal"
+        android:weightSum="5"
+
+        >
+
+        <TextView
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:layout_marginLeft="5dp"
+            android:layout_weight="3"
+            android:gravity="center_vertical"
+            android:text="Total: "
+          style="@style/label_text_bill_details"/>
+
+        />
+
+        <TextView
+            android:id="@+id/tv_total_details"
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:layout_weight="1.7"
+            android:gravity="right|center_vertical"
+            android:textStyle="bold" />
+
+        />
+
+        <TextView
+            style="@style/label_text_bill_details"
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:layout_weight="0.3"
+            android:text="$" />
+
+        />
+
+    </LinearLayout>
 
 
 </LinearLayout>

@@ -1,44 +1,50 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout
-    xmlns:android="http://schemas.android.com/apk/res/android" android:layout_width="match_parent"
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
     android:layout_height="50dp"
-    android:weightSum="4"
-    android:orientation="horizontal">
+    android:orientation="horizontal"
+    android:weightSum="4">
+
     <TextView
         android:id="@+id/tv_name_details"
+        style="@style/label_text_bill_details"
         android:layout_width="0dp"
         android:layout_height="match_parent"
         android:layout_weight="2"
-        android:text="Product name"
-        style="@style/label_text_bill_details"
-        android:background="@drawable/text_bill_details_border"/>
+        android:background="@drawable/text_bill_details_border"
+        android:text="Product name" />
+
     <TextView
         android:id="@+id/tv_quantily_details"
+        style="@style/label_text_bill_details"
         android:layout_width="0dp"
         android:layout_height="match_parent"
         android:layout_weight="0.8"
-        android:text="Quantily"
-        style="@style/label_text_bill_details"
-        android:background="@drawable/text_bill_details_border"/>
-    />
+        android:background="@drawable/text_bill_details_border"
+        android:gravity="end|center_vertical"
+        android:paddingEnd="5dp"
+        android:text="1" />
+
     <TextView
         android:id="@+id/tv_price_details"
+        style="@style/label_text_bill_details"
         android:layout_width="0dp"
         android:layout_height="match_parent"
         android:layout_weight="0.6"
-        android:text="Price"
-        style="@style/label_text_bill_details"
-        android:background="@drawable/text_bill_details_border"/>
-    />
+        android:gravity="end|center_vertical"
+        android:paddingRight="5dp"
+        android:background="@drawable/text_bill_details_border"
+        android:text="Price"   />
 
     <TextView
         android:id="@+id/total_details"
+        style="@style/label_text_bill_details"
         android:layout_width="0dp"
         android:layout_height="match_parent"
         android:layout_weight="0.6"
-        android:text="Total"
-        style="@style/label_text_bill_details"
-        android:background="@drawable/text_bill_details_border"/>
-    />
+        android:gravity="end|center_vertical"
+        android:paddingRight="5dp"
+        android:background="@drawable/text_bill_details_border"
+        />
 
-    </LinearLayout>
+</LinearLayout>

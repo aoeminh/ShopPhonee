@@ -1,5 +1,6 @@
 package com.example.apple.shopphonee.activity;
 
+import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
@@ -15,6 +16,9 @@ import com.example.apple.shopphonee.model.Cart;
 import com.example.apple.shopphonee.model.Product;
 import com.example.apple.shopphonee.utils.ApiUtils;
 
+import java.text.NumberFormat;
+import java.util.Locale;
+
 
 public class DetailProduct extends BaseActivity implements View.OnClickListener {
 
@@ -25,7 +29,6 @@ public class DetailProduct extends BaseActivity implements View.OnClickListener 
     private  Product product = new Product();
     private android.support.v7.widget.Toolbar toolbar;
 
-
     @Override
     void initView() {
         thumnail = this.findViewById(R.id.thumnail_detail);
@@ -34,15 +37,19 @@ public class DetailProduct extends BaseActivity implements View.OnClickListener 
         priceProduct = this.findViewById(R.id.price_details);
         quantily_spn = this.findViewById(R.id.spn_quantily_details);
         buy_btn = this.findViewById(R.id.btn_buy_details);
-        toolbar = (android.support.v7.widget.Toolbar) this.findViewById(R.id.toolbar_detail);
+        toolbar =  this.findViewById(R.id.toolbar_detail);
 
         Bundle bundle = getIntent().getExtras();
-        product = ApiUtils.getBundle(bundle, product);
+        //product = ApiUtils.getBundle(bundle, product);
 
+        product = (Product) bundle.getSerializable("product");
+        NumberFormat format = NumberFormat.getCurrencyInstance(Locale.CANADA);
+        String currency = format.format((product.getProductPrice()));
         //pass data for detailActivity
         ApiUtils.loadImage(product.getProductImage(), thumnail, this);
         nameProduct.setText(product.getProductName());
-        priceProduct.setText(String.valueOf(product.getProductPrice()));
+
+        priceProduct.setText(currency);
         decriptionProduct.setText(product.getProductDescription());
         toolbar.setNavigationIcon(R.mipmap.ic_action_arrow_back);
 
@@ -67,6 +74,20 @@ public class DetailProduct extends BaseActivity implements View.OnClickListener 
 
     @Override
     public void onClick(View v) {
+        addItemDetails();
+    }
+
+   public static void addToList(int quantily,Product product) {
+        Cart cart = new Cart();
+        cart.setProductId(product.getId());
+        cart.setProductName(product.getProductName());
+        cart.setProductPrice(product.getProductPrice());
+        cart.setProductImage(product.getProductImage());
+        cart.setQuantily(quantily);
+        MainActivity.cartList.add(cart);
+    }
+
+    public void addItemDetails(){
 
         if(MainActivity.cartList.size()<10){
             int quantily = Integer.parseInt(quantily_spn.getSelectedItem().toString());
@@ -75,19 +96,13 @@ public class DetailProduct extends BaseActivity implements View.OnClickListener 
                 for (int i = 0; i < MainActivity.cartList.size(); i++) {
                     Cart c ;
                     c = MainActivity.cartList.get(i);
-                    Log.i("product",product.getId());
-                    Log.i("c",c.getProductId());
-
                     if (product.getId().equals(c.getProductId()))  {
                         c.setQuantily(c.getQuantily() + quantily);
                         if (c.getQuantily() > 10) {
                             c.setQuantily(10);
                         }
-                        Log.i("1", "1");
-                        Log.i("i", String.valueOf(i));
                         exist = true;
                     }
-
                 }
                 if (!exist) {
                     addToList(quantily,product);
@@ -108,19 +123,7 @@ public class DetailProduct extends BaseActivity implements View.OnClickListener 
             Intent intent = new Intent(getApplicationContext(), ShoppingActivity.class);
             startActivity(intent);
         }
-
-
-
     }
 
-   public static void addToList(int quantily,Product product) {
-        Cart cart = new Cart();
-        cart.setProductId(product.getId());
-        cart.setProductName(product.getProductName());
-        cart.setProductPrice(product.getProductPrice());
-        cart.setProductImage(product.getProductImage());
-        cart.setQuantily(quantily);
-        MainActivity.cartList.add(cart);
-    }
 
 }

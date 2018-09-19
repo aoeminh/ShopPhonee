@@ -9,26 +9,31 @@ import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.CheckBox;
 import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.example.apple.shopphonee.R;
+import com.example.apple.shopphonee.activity.MainActivity;
 import com.example.apple.shopphonee.activity.ShoppingActivity;
 import com.example.apple.shopphonee.model.Cart;
+import com.example.apple.shopphonee.model.OnDeleteItem;
+import com.example.apple.shopphonee.model.OnPosListener;
 import com.example.apple.shopphonee.utils.ApiUtils;
+
+import java.text.NumberFormat;
 import java.util.List;
+import java.util.Locale;
 
 public class ShoppingCartAdapter extends RecyclerView.Adapter<ShoppingCartAdapter.ViewHolder> {
 
-    private List<Cart> cartlist ;
+    public List<Cart> cartlist;
     private Context context;
-
-
+   private OnPosListener onPosListener;
     public ShoppingCartAdapter(Context context, List<Cart> list) {
         this.cartlist = list;
         this.context = context;
-
     }
 
     @NonNull
@@ -46,18 +51,33 @@ public class ShoppingCartAdapter extends RecyclerView.Adapter<ShoppingCartAdapte
 
         ApiUtils.loadImage(cart.getProductImage(), holder.imageView, context);
         holder.productName.setText(cart.getProductName());
-        holder.productPrice.setText(String.valueOf(cart.getProductPrice()));
+        NumberFormat format = NumberFormat.getCurrencyInstance(Locale.CANADA);
+        String currency = format.format(cart.getProductPrice());
+        holder.productPrice.setText(currency);
         holder.quantily.setText(String.valueOf(cart.getQuantily()));
+        holder.checkBox.setChecked(cart.isSelected());
+        //get position item want to delete
+        holder.checkBox.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                if(holder.checkBox.isChecked()){
+                    cart.setSelected(true);
+                } else {
+                    cart.setSelected(false);
+                }
+            }
+        });
 
+        //set increase and decrease buttion click
         int quanlity = Integer.parseInt(holder.quantily.getText().toString());
         if (quanlity >= 10) {
             holder.increase_btn.setVisibility(View.INVISIBLE);
             holder.decrease_btn.setVisibility(View.VISIBLE);
 
-        }else if (quanlity <= 1) {
+        } else if (quanlity <= 1) {
 
             holder.decrease_btn.setVisibility(View.INVISIBLE);
-        }else  {
+        } else {
             holder.decrease_btn.setVisibility(View.VISIBLE);
             holder.increase_btn.setVisibility(View.VISIBLE);
         }
@@ -66,7 +86,6 @@ public class ShoppingCartAdapter extends RecyclerView.Adapter<ShoppingCartAdapte
             @Override
             public void onClick(View v) {
 
-
                 int oldQuanlity = Integer.parseInt(holder.quantily.getText().toString());
                 int newQuanlity = oldQuanlity - 1;
                 cart.setQuantily(newQuanlity);
@@ -74,7 +93,7 @@ public class ShoppingCartAdapter extends RecyclerView.Adapter<ShoppingCartAdapte
                 ShoppingActivity.setTotalBill();
                 if (newQuanlity < 1) {
                     holder.decrease_btn.setVisibility(View.INVISIBLE);
-                    Log.i("add",String.valueOf(newQuanlity));
+                    Log.i("add", String.valueOf(newQuanlity));
                 }
             }
 
@@ -88,9 +107,9 @@ public class ShoppingCartAdapter extends RecyclerView.Adapter<ShoppingCartAdapte
                 cart.setQuantily(newQuanlity);
                 notifyDataSetChanged();
                 ShoppingActivity.setTotalBill();
-                if(newQuanlity>9){
+                if (newQuanlity > 9) {
                     holder.increase_btn.setVisibility(View.INVISIBLE);
-                    Log.i("add",String.valueOf(newQuanlity));
+                    Log.i("add", String.valueOf(newQuanlity));
                 }
             }
         });
@@ -104,16 +123,19 @@ public class ShoppingCartAdapter extends RecyclerView.Adapter<ShoppingCartAdapte
     class ViewHolder extends RecyclerView.ViewHolder {
         private ImageView imageView;
         private TextView productName, productPrice, quantily;
-        public ImageButton increase_btn, decrease_btn;
+        private ImageButton increase_btn, decrease_btn;
+        private CheckBox checkBox;
+
         private ViewHolder(View itemView) {
             super(itemView);
 
             imageView = itemView.findViewById(R.id.thumnail_shopping_cart);
-            productName =  itemView.findViewById(R.id.name_shopping_cart);
+            productName = itemView.findViewById(R.id.name_shopping_cart);
             productPrice = itemView.findViewById(R.id.price_shopping_cart);
-            quantily =  itemView.findViewById(R.id.tv_quality_shopping_cart);
+            quantily = itemView.findViewById(R.id.tv_quality_shopping_cart);
             increase_btn = itemView.findViewById(R.id.btn_increase);
             decrease_btn = itemView.findViewById(R.id.btn_decrease);
+            checkBox = itemView.findViewById(R.id.cb_delete_item);
 
             itemView.setOnLongClickListener(new View.OnLongClickListener() {
                 @Override
@@ -125,9 +147,7 @@ public class ShoppingCartAdapter extends RecyclerView.Adapter<ShoppingCartAdapte
                     builder.setPositiveButton("Delete", new DialogInterface.OnClickListener() {
                         @Override
                         public void onClick(DialogInterface dialog, int which) {
-                            cartlist.remove(getAdapterPosition());
-                            notifyDataSetChanged();
-
+                            onPosListener.getPositioin(getAdapterPosition());
                         }
                     });
                     builder.setNegativeButton("Cancel", new DialogInterface.OnClickListener() {
@@ -136,12 +156,21 @@ public class ShoppingCartAdapter extends RecyclerView.Adapter<ShoppingCartAdapte
 
                         }
                     });
-                    AlertDialog alertDialog =  builder.create();
+                    AlertDialog alertDialog = builder.create();
                     alertDialog.show();
                     return true;
                 }
             });
         }
+    }
+
+    public void OnRemoveItem(OnPosListener onPosListener){
+        this.onPosListener = onPosListener;
+    }
+
+    public void updateList(List<Cart> list){
+        this.cartlist = list;
+        notifyDataSetChanged();
     }
 
 }

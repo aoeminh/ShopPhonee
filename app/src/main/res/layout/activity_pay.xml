@@ -7,7 +7,6 @@
     tools:context=".activity.PayActivity"
     android:orientation="vertical"
     android:weightSum="9"
-    android:padding="5dp"
     >
     <android.support.v7.widget.Toolbar
         android:id="@+id/toolbar_pay"
@@ -19,13 +18,20 @@
 
     </android.support.v7.widget.Toolbar>
 
+
+    <include
+        android:id="@+id/layout_progressBar"
+        layout="@layout/layout_progress_bar"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:visibility="gone"/>
     <TextView
         android:layout_width="match_parent"
         android:layout_height="0dp"
         android:layout_weight="1"
-        android:text=" Customer Information"
+        android:text="@string/customer_information"
         android:gravity="center"
-        android:textSize="25sp"
+        android:textSize="@dimen/title_customer_text_size"
         android:textStyle="bold"
         />
     <LinearLayout
@@ -34,8 +40,8 @@
         android:layout_weight="1"
         android:orientation="horizontal"
         android:weightSum="3"
-        android:layout_marginRight="5dp"
-        android:layout_marginLeft="5dp">
+        android:layout_marginRight="@dimen/layout_item_pay_margin"
+        android:layout_marginLeft="@dimen/layout_item_pay_margin">
         <TextView
             android:layout_width="0dp"
             android:layout_height="match_parent"
@@ -58,8 +64,8 @@
         android:layout_weight="1"
         android:orientation="horizontal"
         android:weightSum="3"
-        android:layout_marginRight="5dp"
-        android:layout_marginLeft="5dp">
+        android:layout_marginRight="@dimen/layout_item_pay_margin"
+        android:layout_marginLeft="@dimen/layout_item_pay_margin">
         <TextView
             android:layout_width="0dp"
             android:layout_height="match_parent"
@@ -83,8 +89,8 @@
         android:layout_weight="1"
         android:orientation="horizontal"
         android:weightSum="3"
-        android:layout_marginRight="5dp"
-        android:layout_marginLeft="5dp">
+        android:layout_marginRight="@dimen/layout_item_pay_margin"
+        android:layout_marginLeft="@dimen/layout_item_pay_margin">
         <TextView
             android:layout_width="0dp"
             android:layout_height="match_parent"
@@ -95,10 +101,10 @@
         <EditText
             android:id="@+id/edt_address_pay"
             android:layout_width="0dp"
-            android:layout_height="match_parent"
+            android:layout_height="wrap_content"
             android:layout_weight="2"
             android:gravity="center_vertical"
-            android:maxLines="3"
+
             />
     </LinearLayout>
 
@@ -108,8 +114,8 @@
         android:layout_weight="1"
         android:orientation="horizontal"
         android:weightSum="3"
-        android:layout_marginRight="5dp"
-        android:layout_marginLeft="5dp">
+        android:layout_marginRight="@dimen/layout_item_pay_margin"
+        android:layout_marginLeft="@dimen/layout_item_pay_margin">
         <TextView
             android:layout_width="0dp"
             android:layout_height="match_parent"
@@ -132,14 +138,14 @@
         android:layout_height="0dp"
         android:layout_weight="1"
         android:weightSum="3"
-        android:layout_marginTop="20dp">
+        android:layout_marginTop="@dimen/layout_button_pay_margin_top">
         <Button
             android:id="@+id/btn_back_pay"
             android:layout_width="0dp"
             android:layout_height="match_parent"
             android:layout_weight="1"
             style="@style/buttonStyle"
-            android:layout_marginRight="50dp"
+            android:layout_marginRight="@dimen/button_back_pay_margin_right"
             android:text="@string/text_btn_back"
             />
         <Button

@@ -2,7 +2,9 @@ package com.example.apple.shopphonee.adapter;
 
 import android.content.Context;
 import android.content.Intent;
+import android.graphics.Color;
 import android.support.annotation.NonNull;
+import android.support.v4.content.ContextCompat;
 import android.support.v7.widget.RecyclerView;
 import android.util.Log;
 import android.view.LayoutInflater;
@@ -20,27 +22,29 @@ import com.example.apple.shopphonee.activity.DetailProduct;
 import com.example.apple.shopphonee.activity.MainActivity;
 import com.example.apple.shopphonee.activity.ShoppingActivity;
 import com.example.apple.shopphonee.model.Cart;
+import com.example.apple.shopphonee.model.OnPosListener;
 import com.example.apple.shopphonee.model.Product;
+import com.example.apple.shopphonee.utils.ApiUtils;
 
+import java.text.NumberFormat;
 import java.util.List;
+import java.util.Locale;
 
 public class HomeAdapter extends RecyclerView.Adapter<HomeAdapter.ViewHolder> {
     private List<Product> phoneList;
     private Context context;
+     private OnPosListener onPosListener;
 
     public HomeAdapter(List<Product> list, Context context) {
         this.context = context;
         this.phoneList = list;
-
     }
 
     @NonNull
     @Override
     public ViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
-
         View rowView = LayoutInflater.from(context)
                 .inflate(R.layout.item_card_view, parent, false);
-
         return new ViewHolder(rowView);
     }
 
@@ -49,7 +53,11 @@ public class HomeAdapter extends RecyclerView.Adapter<HomeAdapter.ViewHolder> {
         Product phone = phoneList.get(position);
         Glide.with(context).load(phone.getProductImage()).into(holder.thumnail);
         holder.phoneName.setText(phone.getProductName());
-        holder.phonePrice.setText(String.valueOf(phone.getProductPrice()));
+        NumberFormat format = NumberFormat.getCurrencyInstance(Locale.CANADA);
+        String currency = format.format(phone.getProductPrice());
+        holder.phonePrice.setText(String.valueOf(currency));
+
+        holder.phonePrice.setTextColor(Color.RED);
     }
 
     @Override
@@ -81,23 +89,9 @@ public class HomeAdapter extends RecyclerView.Adapter<HomeAdapter.ViewHolder> {
                 @Override
                 public void onClick(View v) {
                     int position = getAdapterPosition();
-
-                    //jump to Detail activity
-                    Intent intent = new Intent(context,DetailProduct.class);
-                    Product product = phoneList.get(position);
-                    intent.putExtra("id",product.getId());
-                    intent.putExtra("name",product.getProductName());
-                    intent.putExtra("price",product.getProductPrice());
-                    intent.putExtra("image",product.getProductImage());
-                    intent.putExtra("description",product.getProductDescription());
-                    intent.putExtra("category",product.getProductId());
-                    intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
-                    context.startActivity(intent);
-
-
+                    onPosListener.getPositioin(position);
                 }
             });
-
         }
     }
 
@@ -117,49 +111,9 @@ public class HomeAdapter extends RecyclerView.Adapter<HomeAdapter.ViewHolder> {
                 int id = item.getItemId();
                 switch (id) {
                     case R.id.action_add:
+                        Product product = phoneList.get(position);
 
-                        if(MainActivity.cartList.size()<10){
-                           Product product = phoneList.get(position);
-                            if (MainActivity.cartList.size() > 0) {
-                                boolean exist =false ;
-                                for (int i = 0; i < MainActivity.cartList.size(); i++) {
-                                    Cart c ;
-                                    c = MainActivity.cartList.get(i);
-                                    if (product.getId().equals(c.getProductId()))  {
-                                        c.setQuantily(c.getQuantily() + 1);
-                                        if (c.getQuantily() > 10) {
-                                            c.setQuantily(10);
-                                        }
-                                        Log.i("1", "1");
-                                        Log.i("i", String.valueOf(i));
-                                        exist = true;
-                                    }
-
-                                }
-                                if (!exist) {
-                                    DetailProduct.addToList(1,product);
-                                    Log.i("2", String.valueOf(MainActivity.cartList.size()));
-
-                                }
-                            } else {
-
-                                DetailProduct.addToList(1,product);
-                                Log.i("3", "3");
-
-                            }
-                            Intent intent = new Intent(context, ShoppingActivity.class);
-                            intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
-
-                            context.startActivity(intent);
-
-                        }else {
-                            Toast.makeText(context,"Cart has been full",Toast.LENGTH_SHORT).show();
-                            Intent intent = new Intent(context, ShoppingActivity.class);
-                            intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
-                            context.startActivity(intent);
-                        }
-
-
+                        ApiUtils.addItemToCart(context,product);
                         return true;
                     case R.id.action_favorite:
                         Toast.makeText(context, "add favorite", Toast.LENGTH_SHORT).show();
@@ -167,13 +121,15 @@ public class HomeAdapter extends RecyclerView.Adapter<HomeAdapter.ViewHolder> {
                     default:
                         popupMenu.dismiss();
                         return true;
-
                 }
-
             }
         });
 
         popupMenu.show();
     }
 
+    public void getPositionHome(OnPosListener onPosListener){
+        this.onPosListener = onPosListener;
+
+    }
 }

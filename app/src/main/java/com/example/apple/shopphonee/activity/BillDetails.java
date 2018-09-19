@@ -5,7 +5,10 @@ import android.os.Bundle;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.util.Log;
+import android.view.View;
 import android.widget.Button;
+import android.widget.TextView;
+import android.widget.Toolbar;
 
 import com.example.apple.shopphonee.R;
 import com.example.apple.shopphonee.adapter.BillAdapter;
@@ -25,11 +28,15 @@ public class BillDetails extends BaseActivity{
     RecyclerView rvBillDetails;
     private List<BillDetail> billDetailList = new ArrayList<BillDetail>();
     private BillDetailsAdapter billDetailsAdapter;
+    TextView tvTotal;
+    Toolbar toolbar;
 
     @Override
     void initView() {
         rvBillDetails = findViewById(R.id.rv_bill_details);
-
+        tvTotal = findViewById(R.id.tv_total_details);
+        toolbar = findViewById(R.id.tool_bar_list_details);
+        toolbar.setNavigationIcon(R.mipmap.ic_action_arrow_back);
         billDetailsAdapter = new BillDetailsAdapter(this,billDetailList);
 
         LinearLayoutManager layoutManager  = new LinearLayoutManager(this);
@@ -37,7 +44,6 @@ public class BillDetails extends BaseActivity{
         rvBillDetails.setLayoutManager(layoutManager);
         rvBillDetails.setAdapter(billDetailsAdapter);
         loadData();
-
     }
 
     @Override
@@ -47,7 +53,12 @@ public class BillDetails extends BaseActivity{
 
     @Override
     void setAction() {
-
+        toolbar.setNavigationOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                onBackPressed();
+            }
+        });
     }
 
     void loadData(){
@@ -59,7 +70,8 @@ public class BillDetails extends BaseActivity{
                    billDetailList = response.body();
                    billDetailsAdapter.updateList(billDetailList);
                    billDetailsAdapter.notifyDataSetChanged();
-                   Log.i("success",billDetailList.get(0).getProductName());
+                   tvTotal.setText(String.valueOf(getTotalBill(billDetailList)));
+
                }
            }
 
@@ -69,6 +81,17 @@ public class BillDetails extends BaseActivity{
            }
        });
 
+    }
+
+
+
+     int getTotalBill(List<BillDetail> list){
+
+        int totalBill = 0;
+        for(int i = 0;i<list.size();i++){
+            totalBill +=(list.get(i).getQuantily() * list.get(i).getProductPrice());
+        }
+        return totalBill;
     }
 
 

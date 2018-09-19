@@ -12,6 +12,7 @@ import android.widget.TextView;
 
 import com.example.apple.shopphonee.R;
 import com.example.apple.shopphonee.activity.DetailProduct;
+import com.example.apple.shopphonee.model.OnPosListener;
 import com.example.apple.shopphonee.model.Product;
 import com.example.apple.shopphonee.utils.ApiUtils;
 import java.util.List;
@@ -21,6 +22,7 @@ public class PhoneAdapter extends RecyclerView.Adapter<PhoneAdapter.ViewHolder> 
     private List<Product> phones ;
     private Context context;
 
+    private OnPosListener onPosListener;
     public PhoneAdapter(Context context, List<Product> list){
         this.context  = context;
          this.phones = list;
@@ -68,17 +70,8 @@ public class PhoneAdapter extends RecyclerView.Adapter<PhoneAdapter.ViewHolder> 
                 public void onClick(View v) {
 
                     int position = getAdapterPosition();
+                    onPosListener.getPositioin(position);
 
-                    Intent intent = new Intent(context,DetailProduct.class);
-                    Product product = phones.get(position);
-                    intent.putExtra("id",product.getId());
-                    intent.putExtra("name",product.getProductName());
-                    intent.putExtra("price",product.getProductPrice());
-                    intent.putExtra("image",product.getProductImage());
-                    intent.putExtra("description",product.getProductDescription());
-                    intent.putExtra("category",product.getProductId());
-                    intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
-                    context.startActivity(intent);
                 }
             });
         }
@@ -88,4 +81,12 @@ public class PhoneAdapter extends RecyclerView.Adapter<PhoneAdapter.ViewHolder> 
         this.phones = list;
         notifyDataSetChanged();
     }
+
+    public void getPosition(OnPosListener onPosListener){
+        this.onPosListener = onPosListener;
+
+
+    }
+
+
 }

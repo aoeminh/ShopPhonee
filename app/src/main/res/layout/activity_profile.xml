@@ -6,7 +6,8 @@
     android:layout_height="match_parent"
     tools:context=".activity.ProfileActivity"
     android:orientation="vertical"
-    android:weightSum="10">
+    android:weightSum="10"
+    android:id="@+id/layout_profile">
     <android.support.v7.widget.Toolbar
         android:id="@+id/toolbar_profile"
         android:layout_width="match_parent"
@@ -16,24 +17,34 @@
         app:title="Your profile">
 
     </android.support.v7.widget.Toolbar>
+
+
     <de.hdodenhof.circleimageview.CircleImageView
+
         android:clickable="true"
         app:civ_border_width="1dp"
         app:civ_border_color="#FFFFFFFF"
-        android:id="@+id/profile"
-        android:layout_width="100dp"
-        android:layout_height="100dp"
+        android:id="@+id/im_avatar"
+        android:layout_width="@dimen/avatar_width"
+        android:layout_height="@dimen/avatar_height"
         android:padding="10dp"
         android:scaleType="centerCrop"
         android:layout_gravity="center"
         android:src="@drawable/avatar_user"
         />
     <TextView
+        android:id="@+id/tv_choose_iamge"
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_weight="1"
+        android:text="@string/change_avatar"
+
+        android:gravity="center"/>
+    <TextView
         android:id="@+id/tv_name_profile"
         android:layout_width="match_parent"
         android:layout_height="0dp"
         android:layout_weight="1"
-        android:text="Johnathan"
 
         android:gravity="center"/>
 
@@ -44,8 +55,8 @@
        android:layout_weight="1"
        android:orientation="horizontal"
        android:weightSum="3"
-       android:layout_marginRight="5dp"
-       android:layout_marginLeft="5dp">
+       android:layout_marginRight="@dimen/layout_item_profile_margin"
+       android:layout_marginLeft="@dimen/layout_item_profile_margin">
        <TextView
            android:layout_width="0dp"
            android:layout_height="match_parent"
@@ -68,8 +79,8 @@
         android:layout_weight="1"
         android:orientation="horizontal"
         android:weightSum="3"
-        android:layout_marginRight="5dp"
-        android:layout_marginLeft="5dp">
+        android:layout_marginRight="@dimen/layout_item_profile_margin"
+        android:layout_marginLeft="@dimen/layout_item_profile_margin">
         <TextView
             android:layout_width="0dp"
             android:layout_height="match_parent"
@@ -92,8 +103,8 @@
         android:layout_weight="1"
         android:orientation="horizontal"
         android:weightSum="3"
-        android:layout_marginRight="5dp"
-        android:layout_marginLeft="5dp">
+        android:layout_marginRight="@dimen/layout_item_profile_margin"
+        android:layout_marginLeft="@dimen/layout_item_profile_margin">
         <TextView
             android:layout_width="0dp"
             android:layout_height="match_parent"
@@ -118,9 +129,9 @@
         android:layout_height="0dp"
         android:layout_weight="1"
         style="@style/buttonStyle"
-        android:layout_marginTop="20dp"
+        android:layout_marginTop="@dimen/button_profile_margin_top"
 
-        android:text="Edit Profile"/>
+        android:text="@string/edit_profile"/>
     <Button
         android:id="@+id/btn_history_profile"
         android:layout_width="match_parent"
@@ -129,14 +140,14 @@
         style="@style/buttonStyle"
         android:layout_marginTop="20dp"
 
-        android:text="Histoy shopping"/>
+        android:text="@string/histoy_shopping"/>
     <Button
         android:id="@+id/btn_home_profile"
         android:layout_width="match_parent"
         android:layout_height="0dp"
         android:layout_weight="1"
         style="@style/buttonStyle"
-        android:layout_marginTop="20dp"
+        android:layout_marginTop="@dimen/button_profile_margin_top"
 
         android:text="@string/label_btn_home"/>
     <Button
@@ -145,7 +156,7 @@
         android:layout_height="0dp"
         android:layout_weight="1"
         style="@style/buttonStyle"
-        android:layout_marginTop="20dp"
+        android:layout_marginTop="@dimen/button_profile_margin_top"
 
         android:text="@string/sign_out"/>
 </LinearLayout>

@@ -7,9 +7,18 @@ public class Cart {
     private String productImage;
     private int productPrice;
     private int quantily;
+    private boolean isSelected;
 
     public Cart() {
 
+    }
+
+    public boolean isSelected() {
+        return isSelected;
+    }
+
+    public void setSelected(boolean selected) {
+        isSelected = selected;
     }
 
     public String getProductName() {

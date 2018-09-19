@@ -1,84 +1,108 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout
-    xmlns:android="http://schemas.android.com/apk/res/android" android:layout_width="match_parent"
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:layout_margin="@dimen/layout_frag_sign_up_margin"
     android:orientation="vertical"
     android:weightSum="10"
-    android:layout_margin="5dp"
-
     >
+
     <TextView
         android:id="@+id/tv_note_signup"
-        android:layout_marginTop="30dp"
         android:layout_width="match_parent"
         android:layout_height="0dp"
-        android:layout_weight="1"
-        android:textStyle="bold"
-        android:textSize="15sp"
+        android:layout_marginTop="@dimen/tv_note_sign_up_margin_top"
+        android:layout_weight="1.5"
         android:gravity="center_vertical"
-        android:visibility="gone"
-        />
+        android:textSize="@dimen/tv_note_sign_up_text_size"
+        android:textStyle="bold"
+        android:visibility="gone" />
 
-    <EditText
-        android:id="@+id/edt_username_signup"
+    <android.support.design.widget.TextInputLayout
+        android:id="@+id/til_username"
         android:layout_width="match_parent"
-        android:layout_height="0dp"
-        android:layout_marginTop="60dp"
-        android:layout_weight="1.5"
-        android:hint="@string/text_hint_username" />
+        android:layout_height="wrap_content"
+        android:layout_marginTop="@dimen/til_username_margin_top"
+        >
 
-    <EditText
-        android:inputType="textPassword"
-        android:id="@+id/edt_password_signup"
-        android:layout_width="match_parent"
-        android:layout_height="0dp"
-        android:layout_weight="1.5"
-        android:hint="@string/text_hint_password"
-        android:layout_marginTop="10dp"
+        <EditText
+            android:id="@+id/edt_username_signup"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:inputType="textEmailAddress"
+            android:textColorHint="#00ddff"
+            android:hint="@string/text_hint_username"/>
 
-        />
-    <EditText
-        android:inputType="textPassword"
-        android:id="@+id/edt_re_password_signup"
+    </android.support.design.widget.TextInputLayout>
+
+    <android.support.design.widget.TextInputLayout
+        android:id="@+id/til_password"
         android:layout_width="match_parent"
-        android:layout_height="0dp"
-        android:layout_weight="1.5"
-        android:hint="@string/text_hint_re_password"
-        android:layout_marginTop="10dp"
-        />
+        android:layout_height="wrap_content"
+        android:layout_marginTop="@dimen/note_til_password_margin_top"
+
+        >
+
+        <EditText
+            android:id="@+id/edt_password_signup"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:hint="@string/text_hint_password"
+            android:inputType="textPassword"
+            android:textColorHint="#00ddff"
+            />
+    </android.support.design.widget.TextInputLayout>
+
+
+    <android.support.design.widget.TextInputLayout
+        android:id="@+id/til_re_password"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="@dimen/note_til_password_margin_top"
+        >
+
+        <EditText
+            android:id="@+id/edt_re_password_signup"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_marginTop="@dimen/note_re_password_margin_top"
+            android:hint="@string/text_hint_re_password"
+            android:inputType="textPassword"
+            android:textColorHint="#00ddff" />
+    </android.support.design.widget.TextInputLayout>
 
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="0dp"
-        android:layout_weight="1.1"
-        android:orientation="horizontal"
-        android:weightSum="4"
+        android:layout_marginTop="@dimen/note_layout_button_margin_top"
+        android:layout_weight="2"
         android:gravity="center"
-        android:layout_marginTop="30dp">
+        android:orientation="horizontal"
+        android:weightSum="4">
+
         <Button
             android:id="@+id/btn_back_signup"
+            style="@style/buttonStyle"
             android:layout_width="0dp"
             android:layout_height="match_parent"
+            android:layout_marginRight="@dimen/note_sign_up_button_margin_right"
             android:layout_weight="1"
-            android:text="@string/text_btn_back"
-            style="@style/buttonStyle"
-            android:layout_marginRight="30dp"
-            android:textSize="17sp"
             android:background="@drawable/buton_border"
-
+            android:text="@string/text_btn_back"
+            android:textSize="@dimen/note_sign_up_button_text_size"
             />
+
         <Button
             android:id="@+id/btn_register_signup"
+            style="@style/buttonStyle"
             android:layout_width="0dp"
             android:layout_height="match_parent"
             android:layout_weight="1"
-            android:text="@string/text_button_signup"
-            style="@style/buttonStyle"
-            android:textSize="17sp"
             android:background="@drawable/buton_border"
-
+            android:text="@string/text_button_signup"
+            android:textSize="@dimen/note_sign_up_button_text_size"
             />
     </LinearLayout>
-
 
 </LinearLayout>

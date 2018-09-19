@@ -15,7 +15,7 @@
         <item>10</item>
     </string-array>
     <string name="money_unit">$</string>
-    <string name="label_price">Price:    $</string>
+    <string name="label_price">Price:</string>
     <string name="label_btn_buy">Buy</string>
     <string name="label_btn_home">Home</string>
     <string name="label_btn_add_cart">Add to cart</string>
@@ -41,5 +41,16 @@
     <string name="label_save">Save</string>
     <string name="total_bills">Total bills:</string>
     <string name="date">Date</string>
+    <string name="delete">Delete</string>
+    <string name="cart_empty">Cart empty</string>
+    <string name="sign_in">Login</string>
+    <string name="sign_up">Register</string>
+    <string name="customer_information">Customer Information</string>
+    <string name="change_avatar">Change Avatar</string>
+    <string name="edit_profile">Edit Profile</string>
+    <string name="histoy_shopping">Histoy shopping</string>
+    <string name="select_all">Select All</string>
+    <string name="total">Total:</string>
+    <string name="category">Category</string>
 
 </resources>

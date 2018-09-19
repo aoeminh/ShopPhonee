@@ -4,37 +4,27 @@ import android.app.AlertDialog;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.SharedPreferences;
-import android.database.sqlite.SQLiteDatabase;
-import android.support.v7.app.AppCompatActivity;
-import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.LinearLayout;
 import android.widget.TextView;
 import android.widget.Toast;
-import android.widget.Toolbar;
 
 import com.example.apple.shopphonee.R;
 import com.example.apple.shopphonee.database.SQLiteUtils;
-import com.example.apple.shopphonee.model.BillDetail;
 import com.example.apple.shopphonee.model.Cart;
-import com.example.apple.shopphonee.model.GetBillsID;
 import com.example.apple.shopphonee.utils.ApiUtils;
 import com.example.apple.shopphonee.utils.Constant;
 import com.example.apple.shopphonee.utils.UtilsSharePref;
-import com.google.gson.JsonObject;
 
 import org.json.JSONException;
 import org.json.JSONObject;
 
 import java.io.IOException;
-import java.nio.file.Path;
-import java.util.Calendar;
-import java.util.Date;
 
 import okhttp3.ResponseBody;
-import okhttp3.internal.Util;
 import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
@@ -46,9 +36,9 @@ public class PayActivity extends BaseActivity {
     TextView name, phone;
     EditText address, note;
     SharedPreferences sharedPreferences;
-    SQLiteUtils sqLiteDatabase = new SQLiteUtils(this);
     private  int id;
-
+    LinearLayout layoutProgressBar;
+    AlertDialog alertDialog;
     @Override
     void initView() {
         toolbar = this.findViewById(R.id.toolbar_pay);
@@ -58,6 +48,7 @@ public class PayActivity extends BaseActivity {
         address = this.findViewById(R.id.edt_address_pay);
         note = this.findViewById(R.id.edt_note_pay);
         back_btn = this.findViewById(R.id.btn_back_pay);
+        layoutProgressBar = findViewById(R.id.layout_progressBar);
         toolbar.setNavigationIcon(R.mipmap.ic_action_arrow_back);
         //open database
         sqLiteUtils.open();
@@ -92,13 +83,14 @@ public class PayActivity extends BaseActivity {
         confirm_btn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+                layoutProgressBar.setVisibility(View.VISIBLE);
                 confirm_btn.setEnabled(false);
                 String username = name.getText().toString();
                 String phoneNumber = phone.getText().toString();
                 String addres = address.getText().toString();
                 String notes = note.getText().toString();
-                int totalBill = Integer.parseInt(ShoppingActivity.totalBill.getText().toString());
-                ApiUtils.getAPIService().insertBill(username, phoneNumber, totalBill, addres, notes).enqueue(new Callback<ResponseBody>() {
+                int total = ShoppingActivity.setTotalBill();
+                ApiUtils.getAPIService().insertBill(username, phoneNumber, total, addres, notes).enqueue(new Callback<ResponseBody>() {
                     @Override
                     public void onResponse(Call<ResponseBody> call, Response<ResponseBody> response) {
                         if (response.isSuccessful()) {
@@ -107,8 +99,6 @@ public class PayActivity extends BaseActivity {
                                 int status = jsonObject.getInt("success");
                                 if (status == 1) {
                                     id = Integer.parseInt(jsonObject.getString("id"));
-                                    Log.i("id",String.valueOf(id));
-
                                     //add to bill details
                                     if (id != 0) {
                                         for (int i = 0; i < MainActivity.cartList.size(); i++) {
@@ -119,57 +109,8 @@ public class PayActivity extends BaseActivity {
                                             int productPrice = cart.getProductPrice();
                                             int quantily = cart.getQuantily();
                                             int totalRow = (quantily * productPrice);
-                                            ApiUtils.getAPIService().inserBillDetail(id, productID, productName, productPrice, quantily, totalRow).enqueue(new Callback<ResponseBody>() {
-                                                @Override
-                                                public void onResponse(Call<ResponseBody> call, Response<ResponseBody> response) {
-                                                    if (response.isSuccessful()) {
-                                                        try {
-                                                            JSONObject jsonObject = new JSONObject(response.body().string());
-                                                            int status = jsonObject.getInt("success");
 
-                                                                final AlertDialog.Builder builder = new AlertDialog.Builder(PayActivity.this);
-                                                                builder.setTitle("Success! Thank for shopping!");
-                                                                builder.setMessage("");
-                                                                builder.setPositiveButton("Continue", new DialogInterface.OnClickListener() {
-                                                                    @Override
-                                                                    public void onClick(DialogInterface dialog, int which) {
-                                                                        sqLiteUtils.deleteAll();
-                                                                        sqLiteUtils.close();
-                                                                        MainActivity.cartList.clear();
-
-                                                                        Intent intent = new Intent(PayActivity.this, MainActivity.class);
-                                                                        startActivity(intent);
-                                                                        finish();
-
-                                                                    }
-                                                                });
-                                                                builder.setNegativeButton("Cancel", new DialogInterface.OnClickListener() {
-                                                                    @Override
-                                                                    public void onClick(DialogInterface dialog, int which) {
-                                                                        MainActivity.cartList.clear();
-
-                                                                        Intent intent = new Intent(PayActivity.this, ShoppingActivity.class);
-                                                                        startActivity(intent);
-                                                                        finish();
-                                                                    }
-                                                                });
-                                                                AlertDialog alertDialog = builder.create();
-                                                                alertDialog.show();
-
-
-                                                        } catch (Exception ex) {
-                                                            ex.printStackTrace();
-                                                        }
-                                                    } else {
-                                                        Toast.makeText(PayActivity.this, "Insert fail", Toast.LENGTH_SHORT).show();
-                                                    }
-                                                }
-
-                                                @Override
-                                                public void onFailure(Call<ResponseBody> call, Throwable t) {
-                                                    Log.e("error", t.getMessage());
-                                                }
-                                            });
+                                            insertBillDetails(id,productID,productName,productPrice,quantily,totalRow);
 
                                         }
                                     }
@@ -192,7 +133,68 @@ public class PayActivity extends BaseActivity {
         });
     }
 
-    void insertBillDetail(int id){
+    void insertBillDetails(int id,int productID,String productName,int productPrice,int quantily,int totalRow){
+        ApiUtils.getAPIService().inserBillDetail(id, productID, productName, productPrice, quantily, totalRow).enqueue(new Callback<ResponseBody>() {
+            @Override
+            public void onResponse(Call<ResponseBody> call, Response<ResponseBody> response) {
+                if (response.isSuccessful()) {
+                    try {
+                        JSONObject jsonObject = new JSONObject(response.body().string());
+                        int status = jsonObject.getInt("success");
 
+                        final AlertDialog.Builder builder = new AlertDialog.Builder(PayActivity.this);
+                        builder.setTitle("Success! Thank for shopping!");
+                        builder.setMessage("");
+                        builder.setPositiveButton("Continue", new DialogInterface.OnClickListener() {
+                            @Override
+                            public void onClick(DialogInterface dialog, int which) {
+                                sqLiteUtils.deleteAll();
+                                sqLiteUtils.close();
+                                MainActivity.cartList.clear();
+
+
+                                Intent intent = new Intent(PayActivity.this, MainActivity.class);
+                                startActivity(intent);
+                                alertDialog.dismiss();
+                                finish();
+
+                            }
+                        });
+                        builder.setNegativeButton("Cancel", new DialogInterface.OnClickListener() {
+                            @Override
+                            public void onClick(DialogInterface dialog, int which) {
+                                MainActivity.cartList.clear();
+
+                                Intent intent = new Intent(PayActivity.this, ShoppingActivity.class);
+                                startActivity(intent);
+                                alertDialog.dismiss();
+                                finish();
+                            }
+                        });
+                         alertDialog = builder.create();
+                        alertDialog.show();
+
+
+                    } catch (Exception ex) {
+                        ex.printStackTrace();
+                    }
+                } else {
+                    Toast.makeText(PayActivity.this, "Insert fail", Toast.LENGTH_SHORT).show();
+                }
+            }
+
+            @Override
+            public void onFailure(Call<ResponseBody> call, Throwable t) {
+                Log.e("error", t.getMessage());
+            }
+        });
+    }
+
+    @Override
+    protected void onPause() {
+        super.onPause();
+        if (alertDialog != null) {
+            alertDialog.dismiss();
+        }
     }
 }
